@@ -6,7 +6,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.service.ItemService;
 
@@ -36,7 +35,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
     public String viewItems(Model model) {
         List<Item> items = itemService.getAllItems();
-        log.info("Retrieved items: {}", items);
+        log.info("All items: {}", items);
         model.addAttribute("items", items);
         return "home";
     }

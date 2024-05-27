@@ -3,25 +3,21 @@
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/loginn.css">
 </head>
 <body>
-<div class="left-half">
-    <!-- You can add any content here or leave it empty for a solid color -->
+<div class="nav-bar">
+    <!-- Navigation bar content (optional) -->
 </div>
-<div class="right-half">
-
-
+<div class="login-container">
     <div class="login-modal">
         <h1>Login</h1>
-        <form th:action="@{/procureapp/login}" method="post">
+        <form class="form" th:action="@{/procureapp/login}" method="post">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" required/>
+                <input type="text" id="username" placeholder="Email" name="username" class="form-control" required />
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" class="form-control" required/>
+                <input type="password" id="password" placeholder="Password" name="password" class="form-control" required />
             </div>
             <button type="submit">Login</button>
         </form>

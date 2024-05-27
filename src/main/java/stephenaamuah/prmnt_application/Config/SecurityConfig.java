@@ -36,8 +36,6 @@ public class SecurityConfig {
     private ItemRepository itemRepository;
 
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -45,13 +43,11 @@ public class SecurityConfig {
                         .requestMatchers("/procureapp/signup", "/procureapp/login").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form->form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/success")
-                ).logout((logout)->logout.logoutUrl("/procureapp/logout").clearAuthentication(true))
+                .formLogin(form -> form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/success")
+                ).logout((logout) -> logout.logoutUrl("/procureapp/logout").clearAuthentication(true))
                 .csrf(AbstractHttpConfigurer::disable);
         return httpSecurity.build();
     }
-
-
 
 
     @Bean
@@ -76,7 +72,7 @@ public class SecurityConfig {
     @Bean
     public CommandLineRunner initAdmin() {
         return args -> {
-            if (userRepository.findAppUserByEmail("admin@gmail.com").isEmpty() || userRepository.findAppUserByEmail("user@gmail.com").isEmpty() || userRepository.findAppUserByEmail("superadmin@gmail.com").isEmpty() ) {
+            if (userRepository.findAppUserByEmail("admin@gmail.com").isEmpty() || userRepository.findAppUserByEmail("user@gmail.com").isEmpty() || userRepository.findAppUserByEmail("superadmin@gmail.com").isEmpty()) {
                 User admin = new User();
                 admin.setEmail("admin@gmail.com");
                 admin.setPassword(passwordEncoder().encode("admin"));
@@ -84,9 +80,26 @@ public class SecurityConfig {
                 userRepository.save(admin);
                 log.info("Admin user registered:::::::{}", admin);
 
+
+                User user = new User();
+                user.setEmail("user@gmail.com");
+                user.setPassword(passwordEncoder().encode("user"));
+                user.setRoles(String.valueOf(Role.USER));
+                userRepository.save(user);
+                log.info("User registered:::::::::::::{}", user);
+
+
+                User superAdmin = new User();
+                superAdmin.setEmail("superadmin@gmail.com");
+                superAdmin.setPassword(passwordEncoder().encode("super"));
+                superAdmin.setRoles(String.valueOf(Role.SUPER_ADMIN));
+                userRepository.save(superAdmin);
+                log.info("Super Admin registered:::::::::::::{}", superAdmin);
+
+
                 Item item1 = new Item();
-                item1.setName("Washing Machine");
-                item1.setDescription("This is the used for washing");
+                item1.setName("Laptop");
+                item1.setDescription("This is a laptop");
                 item1.setQuantity(56);
                 itemRepository.save(item1);
 
@@ -97,26 +110,17 @@ public class SecurityConfig {
                 itemRepository.save(item2);
 
                 Item item3 = new Item();
-                item3.setName("Electric Stove");
-                item3.setDescription("This is an electric stove");
+                item3.setName("Macbook");
+                item3.setDescription("This is a macbook");
                 item3.setQuantity(200);
                 itemRepository.save(item3);
 
+                Item item4 = new Item();
+                item4.setName("Machine");
+                item4.setDescription("This is a machine");
+                item4.setQuantity(56);
+                itemRepository.save(item4);
 
-
-                User user = new User();
-                user.setEmail("user@gmail.com");
-                user.setPassword(passwordEncoder().encode("user"));
-                user.setRoles(String.valueOf(Role.USER));
-                userRepository.save(user);
-                log.info("User registered:::::::::::::{}", user);
-
-                User superAdmin = new User();
-                superAdmin.setEmail("superadmin@gmail.com");
-                superAdmin.setPassword(passwordEncoder().encode("super"));
-                superAdmin.setRoles(String.valueOf(Role.SUPER_ADMIN));
-                userRepository.save(superAdmin);
-                log.info("Super Admin registered:::::::::::::{}", superAdmin);
 
             } else {
                 log.info("Admin user already registered:::::::");
