@@ -20,11 +20,13 @@ public class UserController {
     @Autowired
     private ItemService itemService;
 
+
     @GetMapping("/home")
     @PreAuthorize("hasAuthority('USER')")
     public String userHomePage() {
         return "home";
     }
+
 
     @GetMapping("/items")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
@@ -32,11 +34,13 @@ public class UserController {
         return new ModelAndView("home", "items", itemService.getAllItems());
     }
 
+
     @GetMapping("/items/add")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-    public ModelAndView getAddItemForm() {
+    public ModelAndView addItem() {
         return new ModelAndView("dashboard", "item", new Item());
     }
+
 
     @PostMapping("/items/add")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
@@ -45,9 +49,10 @@ public class UserController {
         return "redirect:/procureapp/items";
     }
 
+
     @GetMapping("/items/update/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-    public ModelAndView getEditItemForm(@PathVariable Long id) {
+    public ModelAndView updateItem(@PathVariable Long id) {
         return new ModelAndView("dashboard", "item", itemService.getItemById(id));
     }
 

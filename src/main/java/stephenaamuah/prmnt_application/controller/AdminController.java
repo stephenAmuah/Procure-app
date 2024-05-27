@@ -13,7 +13,7 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String adminLanding() {
+    public String adminHome() {
         return "dashboard";
     }
 
