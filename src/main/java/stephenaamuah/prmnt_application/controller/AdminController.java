@@ -18,9 +18,17 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAdminDashboard(Model model) {
+    public String getAdminPage(Model model) {
         model.addAttribute("items", itemService.getAllItems());
         model.addAttribute("item", new Item());
+        return "dashboard";
+    }
+
+
+    @GetMapping("/items/add")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    public String addItem(Model model, Item item) {
+        model.addAttribute("item", item);
         return "dashboard";
     }
 
@@ -29,13 +37,6 @@ public class AdminController {
     public String addItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
         return "redirect:/procureapp/dashboard";
-    }
-
-    @GetMapping("/items/add")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-    public String getAddItemForm(Model model, Item item) {
-        model.addAttribute("item", item);
-        return "dashboard";
     }
 
     @PostMapping("/items/update")
