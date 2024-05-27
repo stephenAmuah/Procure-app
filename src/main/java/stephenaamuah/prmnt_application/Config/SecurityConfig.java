@@ -15,8 +15,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.Role;
+import stephenaamuah.prmnt_application.repository.ItemRepository;
 import stephenaamuah.prmnt_application.repository.UserRepository;
 import stephenaamuah.prmnt_application.service.UserDetailsService;
 
@@ -29,6 +31,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
 
 
@@ -78,6 +83,26 @@ public class SecurityConfig {
                 admin.setRoles(String.valueOf(Role.ADMIN));
                 userRepository.save(admin);
                 log.info("Admin user registered:::::::{}", admin);
+
+                Item item1 = new Item();
+                item1.setName("Washing Machine");
+                item1.setDescription("This is the used for washing");
+                item1.setQuantity(56);
+                itemRepository.save(item1);
+
+                Item item2 = new Item();
+                item2.setName("Car");
+                item2.setDescription("This is a car");
+                item2.setQuantity(100);
+                itemRepository.save(item2);
+
+                Item item3 = new Item();
+                item3.setName("Electric Stove");
+                item3.setDescription("This is an electric stove");
+                item3.setQuantity(200);
+                itemRepository.save(item3);
+
+
 
                 User user = new User();
                 user.setEmail("user@gmail.com");

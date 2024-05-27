@@ -2,51 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
 </head>
 <body>
-<h1>Welcome User</h1>
+<div class="container">
+    <h1>Welcome User</h1>
 
-<h1>Item List</h1>
-<a href="/procureapp/items/add">Add New Item</a>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Items will be dynamically populated -->
-    <th:block th:each="item : ${items}">
+    <h2>Item List</h2>
+    <table class="table">
+        <thead>
         <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.name}"></td>
             <td th:text="${item.description}"></td>
             <td th:text="${item.quantity}"></td>
-            <td>
-                <a th:href="@{/procureapp/items/update/{id}(id=${item.id})}">Edit</a>
-                <form th:action="@{/procureapp/items/{id}(id=${item.id})}" method="post" style="display:inline;">
-                    <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
         </tr>
-    </th:block>
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-<a href="/procureapp/logout">Logout</a>
-
+        </tbody>
+    </table>
+    <a href="/procureapp/logout" class="btn btn-secondary">Logout</a>
+</div>
 </body>
 </html>

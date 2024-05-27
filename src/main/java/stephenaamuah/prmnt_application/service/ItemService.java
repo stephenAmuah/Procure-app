@@ -1,10 +1,10 @@
-package stephenaamuah.prmnt_application.repository;
+package stephenaamuah.prmnt_application.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stephenaamuah.prmnt_application.model.Item;
-import stephenaamuah.prmnt_application.service.ItemRepository;
+import stephenaamuah.prmnt_application.repository.ItemRepository;
 
 import java.util.List;
 
@@ -24,11 +24,11 @@ public class ItemService {
 
 
     public Item getItemById(Long id) {
-        return itemRepository.findById(Math.toIntExact(id)).orElse(null);
+        return itemRepository.findById(id).orElse(null);
     }
 
     public void updateItem(Long id, Item item) {
-        Item existingItem = itemRepository.findById(Math.toIntExact(id)).orElse(null);
+        Item existingItem = itemRepository.findById(id).orElse(null);
         if (existingItem != null) {
             existingItem.setName(item.getName());
             existingItem.setDescription(item.getDescription());
@@ -38,7 +38,7 @@ public class ItemService {
     }
 
     public void deleteItem(Long id) {
-        itemRepository.deleteById(Math.toIntExact(id));
+        itemRepository.deleteById(id);
     }
 
 
