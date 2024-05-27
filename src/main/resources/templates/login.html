@@ -3,23 +3,30 @@
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  type="text/css" href="../static/css/admindashboard.css">
+    <link rel="stylesheet"  type="text/css" href="/css/login.css">
 </head>
 <body>
-<h1>Login</h1>
-<form th:action="@{/procureapp/login}" method="post">
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username"/>
+<div class="left-half">
+    <!-- You can add any content here or leave it empty for a solid color -->
+</div>
+<div class="right-half">
+    <div class="login-modal">
+        <h1>Login</h1>
+        <form th:action="@{/procureapp/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required/>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            <p>Don't have an account? <a th:href="@{/procureapp/signup}">Sign up here</a></p>
+        </div>
     </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
-</form>
-<p>Don't have an account? <a th:href="@{/procureapp/signup}">Sign up here</a></p>
+</div>
 </body>
 </html>

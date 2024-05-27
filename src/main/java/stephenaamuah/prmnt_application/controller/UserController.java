@@ -17,20 +17,24 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
+    private final ItemService itemService;
+
     @Autowired
-    private ItemService itemService;
+    public UserController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping("/home")
     @PreAuthorize("hasAuthority('USER')")
     public String userHomePage() {
-        return "home";
+        return "redirect:/procureapp/items";
     }
 
     @GetMapping("/items")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
     public String viewItems(Model model) {
         List<Item> items = itemService.getAllItems();
-        log.info("All items {}",itemService.getAllItems());
+        log.info("Retrieved items: {}", items);
         model.addAttribute("items", items);
         return "home";
     }

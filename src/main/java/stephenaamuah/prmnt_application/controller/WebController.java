@@ -28,7 +28,6 @@ public class WebController {
             return "redirect:/procureapp/dashboard";
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
             return "redirect:/procureapp/home";
-
         }
         return "redirect:/procureapp/login?error=true";
     }

@@ -4,14 +4,25 @@
     <title>Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/css/admindashboard.css">
 </head>
 <body>
-<div class="container">
-    <h1>Welcome Admin</h1>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand">Admin</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <i onclick="openAddModal()" class="fas fa-plus"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <!-- Table to display all items -->
-    <table class="item-table">
+<div class="container mt-4">
+    <table class="table">
         <thead>
         <tr>
             <th>ID</th>
@@ -27,66 +38,90 @@
             <td th:id="'name_' + ${item.id}" th:text="${item.name}"></td>
             <td th:id="'description_' + ${item.id}" th:text="${item.description}"></td>
             <td th:id="'quantity_' + ${item.id}" th:text="${item.quantity}"></td>
-            <td>
-                <button th:data-id="${item.id}" onclick="openUpdateModal(this)" class="btn btn-primary">Update</button>
-                <button th:data-id="${item.id}" onclick="deleteItem(this)" class="btn btn-danger">Delete</button>
+            <td class="table-actions">
+                <button th:data-id="${item.id}" onclick="openUpdateModal(this)" class="btn btn-link">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button th:data-id="${item.id}" onclick="deleteItem(this)" class="btn btn-link">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
-
-    <button onclick="openAddModal()" class="btn btn-success">Add Item</button>
 </div>
 
-<!-- Modal for adding items -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <h2>Add New Item</h2>
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required class="form-control"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" required class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" required class="form-control"/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" required class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" required class="form-control"/>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Add</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal for updating items -->
-<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <h2>Update Item</h2>
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateItemModalLabel">Update Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form id="updateItemForm" class="ajax-form" method="post">
-                <input type="hidden" id="updateItemId" name="id"/>
-                <div class="form-group">
-                    <label for="updateName">Name:</label>
-                    <input type="text" id="updateName" name="name" required class="form-control"/>
+                <div class="modal-body">
+                    <input type="hidden" id="updateItemId" name="id"/>
+                    <div class="form-group">
+                        <label for="updateName">Name:</label>
+                        <input type="text" id="updateName" name="name" required class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDescription">Description:</label>
+                        <textarea id="updateDescription" name="description" required class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateQuantity">Quantity:</label>
+                        <input type="number" id="updateQuantity" name="quantity" required class="form-control"/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="updateDescription">Description:</label>
-                    <textarea id="updateDescription" name="description" required class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="updateQuantity">Quantity:</label>
-                    <input type="number" id="updateQuantity" name="quantity" required class="form-control"/>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
                 </div>
             </form>
         </div>
@@ -101,52 +136,58 @@
     }
 
     function openUpdateModal(button) {
-        var itemId = $(button).data('id');
-        $('#updateItemId').val(itemId);
-        var name = $('#name_' + itemId).text().trim();
-        var description = $('#description_' + itemId).text().trim();
-        var quantity = $('#quantity_' + itemId).text().trim();
-        $('#updateName').val(name);
-        $('#updateDescription').val(description);
-        $('#updateQuantity').val(quantity);
-        $('#updateItemForm').attr('action', '/procureapp/items/update?id=' + itemId);
+        const itemId = button.getAttribute('data-id');
+        document.getElementById('updateItemId').value = itemId;
+        const name = document.getElementById('name_' + itemId).innerText.trim();
+        const description = document.getElementById('description_' + itemId).innerText.trim();
+        const quantity = document.getElementById('quantity_' + itemId).innerText.trim();
+        document.getElementById('updateName').value = name;
+        document.getElementById('updateDescription').value = description;
+        document.getElementById('updateQuantity').value = quantity;
+        document.getElementById('updateItemForm').action = '/procureapp/items/update?id=' + itemId;
         $('#updateItemModal').modal('show');
     }
 
-    function deleteItem(button) {
-        var itemId = $(button).data('id');
+    async function deleteItem(button) {
+        const itemId = button.getAttribute('data-id');
         if (confirm("Are you sure you want to delete this item?")) {
-            $.ajax({
-                type: 'POST',
-                url: '/procureapp/items/delete?id=' + itemId,
-                success: function () {
+            try {
+                const response = await fetch('/procureapp/items/delete?id=' + itemId, {method: 'POST'});
+                if (response.ok) {
                     window.location.reload();
-                },
-                error: function (xhr) {
-                    console.error(xhr.responseText);
-                    alert('Error occurred while processing the request: ' + xhr.responseText);
+                } else {
+                    const errorText = await response.text();
+                    console.error(errorText);
+                    alert('Error occurred while processing the request: ' + errorText);
                 }
-            });
+            } catch (error) {
+                console.error(error);
+                alert('Error occurred while processing the request: ' + error);
+            }
         }
     }
 
-    $(document).ready(function () {
-        $('.ajax-form').submit(function (e) {
-            e.preventDefault();
-            var form = $(this);
-            var url = form.attr('action');
-            var formData = form.serialize();
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                success: function () {
-                    $('.modal').modal('hide');
-                    window.location.reload();
-                },
-                error: function (xhr) {
-                    console.error(xhr.responseText);
-                    alert('Error occurred while processing the request: ' + xhr.responseText);
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.ajax-form').forEach(form => {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: new URLSearchParams(formData)
+                    });
+                    if (response.ok) {
+                        $('.modal').modal('hide');
+                        window.location.reload();
+                    } else {
+                        const errorText = await response.text();
+                        console.error(errorText);
+                        alert('Error occurred while processing the request: ' + errorText);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Error occurred while processing the request: ' + error);
                 }
             });
         });
