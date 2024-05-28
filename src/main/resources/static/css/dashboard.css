@@ -9,7 +9,6 @@ body {
     margin: auto;
 }
 
-/* Navbar styling */
 .navbar {
     background-color: #0E0E52;
 }
@@ -24,7 +23,6 @@ body {
     cursor: pointer;
 }
 
-/* Table styling */
 .table {
     background-color: #ffffff;
     border-radius: 5px;
@@ -53,7 +51,7 @@ body {
     color: #0056b3;
 }
 
-/* Modal styling */
+
 .modal-header {
     background-color: #0E0E52;
     color: #ffffff;
