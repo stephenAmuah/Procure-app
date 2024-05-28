@@ -1,4 +1,4 @@
-/* Ensure the body takes the full height of the viewport */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -6,10 +6,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(#ece9e6, #ffffff); /* Subtle background gradient */
+    background: linear-gradient(#ece9e6, #ffffff);
 }
 
-/* Centering the signup-container div */
+
 .signup-container {
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Styling the signup modal */
+
 .signup-modal {
     background-color: white;
     padding: 40px;

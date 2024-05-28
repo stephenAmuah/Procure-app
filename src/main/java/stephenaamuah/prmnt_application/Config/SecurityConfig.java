@@ -37,9 +37,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/procureapp/signup", "/procureapp/login").permitAll()
                         .anyRequest().authenticated()
-
                 )
                 .formLogin(form -> form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/success"))
                 .logout(logout -> logout.logoutUrl("/procureapp/logout").clearAuthentication(true))
