@@ -1,4 +1,4 @@
-
+/* Reset default browser styles */
 html, body {
     height: 100%;
     margin: 0;
@@ -9,7 +9,7 @@ html, body {
     background: linear-gradient(#ece9e6, #ffffff);
 }
 
-
+/* Center content vertically and horizontally */
 .signup-container {
     display: flex;
     justify-content: center;
@@ -20,10 +20,21 @@ html, body {
     box-sizing: border-box;
 }
 
-
+nav {
+    background-color: #0E0E52;
+    color: white;
+    padding: 15px;
+    text-align: start;
+    font-size: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+/* Modal styling */
 .signup-modal {
     background-color: white;
-    padding: 40px;
+    padding: 50px; /* Adjusted padding */
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
@@ -34,11 +45,9 @@ html, body {
     align-items: center;
 }
 
+/* Header styling */
 .modal-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 17px;
 }
 
 .modal-header h1 {
@@ -46,44 +55,47 @@ html, body {
     color: #333;
 }
 
+/* Form group styling */
 .form-group {
-    width: 100%;
     margin-bottom: 20px;
     text-align: left;
 }
 
+/* Form control styling */
 .form-control {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
 }
 
+/* Button styling */
 .submit-btn {
-    width: 100%;
     padding: 12px;
-    background-color: #3A0CA3;
+    background-color: #0E0E52;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%; /* Adjusted width */
 }
 
 .submit-btn:hover {
     background-color: #0056b3;
 }
 
+/* Link styling */
 .link {
     margin-top: 20px;
     font-size: 14px;
 }
 
 .link a {
-    color: #3A0CA3;
+    color: #0E0E52;
     text-decoration: none;
     transition: color 0.3s ease;
 }

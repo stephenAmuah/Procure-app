@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/admindashboard.css">
+    <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -22,6 +22,11 @@
 </nav>
 
 <div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" id="filter" class="form-control" placeholder="Filter items...">
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -32,7 +37,7 @@
             <th>Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="itemTable">
         <tr th:each="item : ${items}">
             <td th:text="${item.id}"></td>
             <td th:id="'name_' + ${item.id}" th:text="${item.name}"></td>
@@ -51,17 +56,13 @@
     </table>
 </div>
 
-
-
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
-     aria-hidden="true">
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
             </div>
             <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post">
                 <div class="modal-body">
@@ -91,18 +92,12 @@
     </div>
 </div>
 
-
-
-
-<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel"
-     aria-hidden="true">
+<!-- Update Item Modal -->
+<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="updateItemModalLabel">Update Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <form id="updateItemForm" class="ajax-form" method="post">
                 <div class="modal-body">
@@ -193,6 +188,19 @@
                 } catch (error) {
                     console.error(error);
                     alert('Error occurred while processing the request: ' + error);
+                }
+            });
+        });
+
+        document.getElementById('filter').addEventListener('input', function() {
+            const filterText = this.value.toLowerCase();
+            document.querySelectorAll('#itemTable tr').forEach(row => {
+                const name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                const description = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+                if (name.includes(filterText) || description.includes(filterText)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
             });
         });
