@@ -1,5 +1,6 @@
 package stephenaamuah.prmnt_application.Config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -37,6 +38,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/procureapp/signup", "/procureapp/login").permitAll()
                         .anyRequest().authenticated()

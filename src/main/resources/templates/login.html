@@ -3,8 +3,10 @@
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <body>
 <div class="login-container">
@@ -22,7 +24,7 @@
             <button type="submit" class="submit-btn">Login</button>
         </form>
         <div class="link">
-            <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+            <p>Don't have an account? <a th:href="@{/procureapp/signup}">Sign up here</a></p>
         </div>
     </div>
 </div>

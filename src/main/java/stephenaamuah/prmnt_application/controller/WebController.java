@@ -22,13 +22,10 @@ public class WebController {
     private UserService userService;
 
 
-
-
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
     }
-
 
     @GetMapping("/signup")
     public String getSignupPage(@ModelAttribute("user") User user) {

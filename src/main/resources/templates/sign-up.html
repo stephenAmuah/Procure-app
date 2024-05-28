@@ -3,14 +3,16 @@
 <head>
     <title>Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/sign-up.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/css/sign-up.css">
 </head>
 <body>
 <div class="signup-container">
     <div class="signup-modal">
         <div class="modal-header">
-            <h1>Create Account</h1>
+            <h1>Sign Up</h1>
         </div>
         <form th:action="@{/procureapp/signup}" th:object="${user}" method="post">
             <div class="form-group">
@@ -22,7 +24,7 @@
             <button type="submit" class="submit-btn">Sign Up</button>
         </form>
         <div class="link">
-            <p>Already have an account? <a href="/login">Log In</a></p>
+            <p>Already have an account? <a th:href="@{/procureapp/login}">Log In</a></p>
         </div>
     </div>
 </div>
