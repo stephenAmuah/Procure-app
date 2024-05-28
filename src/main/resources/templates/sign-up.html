@@ -3,26 +3,27 @@
 <head>
     <title>Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  type="text/css" href="/css/sign-up.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/sign-up.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="left-half"></div>
-<div class="right-half">
-    <div class="signup-container">
-        <h1>Signup</h1>
+<div class="signup-container">
+    <div class="signup-modal">
+        <div class="modal-header">
+            <h1>Create Account</h1>
+        </div>
         <form th:action="@{/procureapp/signup}" th:object="${user}" method="post">
-            <div>
-                <label>Email:</label>
-                <input type="text" th:field="*{email}" placeholder="Enter your email" />
+            <div class="form-group">
+                <input type="email" id="email" th:field="*{email}" placeholder="Email" class="form-control" required />
             </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" th:field="*{password}" placeholder="Enter your password" />
+            <div class="form-group">
+                <input type="password" id="password" th:field="*{password}" placeholder="Password" class="form-control" required />
             </div>
-            <div>
-                <button type="submit">Signup</button>
-            </div>
+            <button type="submit" class="submit-btn">Sign Up</button>
         </form>
+        <div class="link">
+            <p>Already have an account? <a href="/login">Log In</a></p>
+        </div>
     </div>
 </div>
 </body>

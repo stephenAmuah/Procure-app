@@ -21,17 +21,7 @@ public class WebController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/success")
-    public String defaultAfterLogin(Authentication authentication) {
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            return "redirect:/procureapp/dashboard";
-        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("SUPER_ADMIN"))) {
-            return "redirect:/procureapp/dashboard";
-        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
-            return "redirect:/procureapp/home";
-        }
-        return "redirect:/procureapp/login?error=true";
-    }
+
 
 
     @GetMapping("/login")
@@ -49,6 +39,18 @@ public class WebController {
     public String signupUser(@ModelAttribute("user") User user) {
         userService.registerUser(user);
         return "redirect:/procureapp/login";
+    }
+
+    @GetMapping("/success")
+    public String defaultAfterLogin(Authentication authentication) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            return "redirect:/procureapp/dashboard";
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("SUPER_ADMIN"))) {
+            return "redirect:/procureapp/dashboard";
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
+            return "redirect:/procureapp/home";
+        }
+        return "redirect:/procureapp/login?error=true";
     }
 
 
