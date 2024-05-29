@@ -1,14 +1,19 @@
 package stephenaamuah.prmnt_application.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import stephenaamuah.prmnt_application.model.Item;
+import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.service.ItemService;
+import stephenaamuah.prmnt_application.service.UserService;
+
+import java.util.Objects;
+
 
 @Controller
 @RequestMapping("/procureapp")
@@ -17,19 +22,36 @@ public class AdminController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("/dashboard")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAdminPage(Model model) {
-        model.addAttribute("items", itemService.getAllItems());
-        model.addAttribute("item", new Item());
+    @Autowired
+    private UserService userService;
 
+    @GetMapping("/signup")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAddUserPage(@ModelAttribute("user") User user) {
+        return "add-user";
+    }
+
+    @PostMapping("/signup")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String addUser(@ModelAttribute("user") User user) {
+        userService.addUser(user);
+        return "redirect:/procureapp/login";
+    }
+
+    @GetMapping("/dashboard")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    public String getAdminDashboard(Model model, Authentication authentication) {
+        model.addAttribute("items", itemService.getAllItems());
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+
+        model.addAttribute("item", new Item());
         return "dashboard";
     }
 
 
     @GetMapping("/items/add")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-    public String addItem(Model model, Item item) {
+    public String getAddItem(Model model, Item item) {
         model.addAttribute("item", item);
         return "dashboard";
     }
@@ -54,12 +76,14 @@ public class AdminController {
         existingItem.setName(item.getName());
         existingItem.setDescription(item.getDescription());
         existingItem.setQuantity(item.getQuantity());
-        itemService.saveItem(existingItem);
+
+        itemService.updateItem(existingItem);
+
         return "redirect:/procureapp/dashboard";
     }
 
     @PostMapping("/items/delete")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     public String deleteItem(@RequestParam("id") Long id) {
         itemService.deleteItem(id);
         return "redirect:/procureapp/dashboard";

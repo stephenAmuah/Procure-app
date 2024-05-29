@@ -22,4 +22,5 @@ public class UserDetailsService implements org.springframework.security.core.use
         Optional<User> user = userRepository.findAppUserByEmail(username);
         return user.map(UserDetails::new).orElseThrow(()->new UsernameNotFoundException("User does not exist"));
     }
+
 }

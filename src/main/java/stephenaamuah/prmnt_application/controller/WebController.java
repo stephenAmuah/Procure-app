@@ -18,8 +18,6 @@ import stephenaamuah.prmnt_application.service.UserService;
 @RequestMapping("/procureapp")
 public class WebController {
 
-    @Autowired
-    private UserService userService;
 
 
     @GetMapping("/login")
@@ -27,16 +25,7 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping("/signup")
-    public String getSignupPage(@ModelAttribute("user") User user) {
-        return "sign-up";
-    }
 
-    @PostMapping("/signup")
-    public String signupUser(@ModelAttribute("user") User user) {
-        userService.registerUser(user);
-        return "redirect:/procureapp/login";
-    }
 
     @GetMapping("/success")
     public String defaultAfterLogin(Authentication authentication) {

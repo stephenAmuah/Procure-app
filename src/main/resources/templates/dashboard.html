@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,8 +17,8 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">ProcureApp</a>
         <div class="navbar-nav ms-auto">
-            <span class="navbar-text me-3" th:text="'Role: ' + ${loggedInUserRole}"></span>
-            <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+
+            <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
             <a class="nav-link" href="/procureapp/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
     </div>
@@ -63,14 +65,13 @@
 </div>
 
 <!-- Add Item Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
             </div>
-            <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post">
+            <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Name:</label>
@@ -94,15 +95,15 @@
     </div>
 </div>
 
+
 <!-- Update Item Modal -->
-<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="updateItemModalLabel">Update Item</h5>
             </div>
-            <form id="updateItemForm" class="ajax-form" method="post">
+            <form id="updateItemForm" class="ajax-form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="updateItemId" name="id"/>
                     <div class="form-group">
@@ -127,11 +128,33 @@
     </div>
 </div>
 
+<!--Error Message Model-->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title " id="errorModalLabel">Error</h5>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function openAddModal() {
         $('#addItemModal').modal('show');
+    }
+
+    function showErrorModal(message) {
+        document.getElementById('errorMessage').innerText = message;
+        $('#errorModal').modal('show');
     }
 
     function openUpdateModal(button) {
@@ -149,22 +172,25 @@
 
     async function deleteItem(button) {
         const itemId = button.getAttribute('data-id');
-        if (confirm("Are you sure you want to delete this item?")) {
-            try {
-                const response = await fetch('/procureapp/items/delete?id=' + itemId, {method: 'POST'});
-                if (response.ok) {
-                    window.location.reload();
+        try {
+            const response = await fetch('/procureapp/items/delete?id=' + itemId, {method: 'POST'});
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                if (response.status === 403) {
+                    showErrorModal('Only super admins are permitted to delete an item');
                 } else {
                     const errorText = await response.text();
-                    console.error(errorText);
-                    alert('Error occurred while processing the request: ' + errorText);
+                    showErrorModal('Error occurred while processing the request: ' + errorText);
                 }
-            } catch (error) {
-                console.error(error);
-                alert('Error occurred while processing the request: ' + error);
             }
+        } catch (error) {
+            showErrorModal('Error occurred while processing the request: ' + error);
         }
     }
+
+
+
 
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.ajax-form').forEach(form => {
@@ -174,7 +200,7 @@
                 try {
                     const response = await fetch(this.action, {
                         method: 'POST',
-                        body: new URLSearchParams(formData)
+                        body: formData
                     });
                     if (response.ok) {
                         $('.modal').modal('hide');

@@ -73,31 +73,37 @@ public class SecurityConfig {
     @Bean
     public CommandLineRunner initAdmin() {
         return args -> {
-            if (userRepository.findAppUserByEmail("admin@gmail.com").isEmpty()) {
-                User admin = new User();
-                admin.setEmail("admin@gmail.com");
-                admin.setPassword(passwordEncoder().encode("admin"));
-                admin.setRoles(String.valueOf(Role.ADMIN));
-                userRepository.save(admin);
-                log.info("Admin user registered: {}", admin);
+            if (userRepository.findAppUserByEmail("ternor@gmail.com").isEmpty()) {
+                User adminAlfred = new User();
+                adminAlfred.setFirstName("Alfred");
+                adminAlfred.setSurname("Ternor");
+                adminAlfred.setEmail("ternor@gmail.com");
+                adminAlfred.setPassword(passwordEncoder().encode("admin"));
+                adminAlfred.setRoles(String.valueOf(Role.ADMIN));
+                userRepository.save(adminAlfred);
+                log.info("Admin {} has been added", adminAlfred.getFirstName());
             }
 
-            if (userRepository.findAppUserByEmail("user@gmail.com").isEmpty()) {
-                User user = new User();
-                user.setEmail("user@gmail.com");
-                user.setPassword(passwordEncoder().encode("user"));
-                user.setRoles(String.valueOf(Role.USER));
-                userRepository.save(user);
-                log.info("User registered: {}", user);
+            if (userRepository.findAppUserByEmail("stephen@gmail.com").isEmpty()) {
+                User userStephen = new User();
+                userStephen.setFirstName("Stephen");
+                userStephen.setSurname("Amuah");
+                userStephen.setEmail("stephen@gmail.com");
+                userStephen.setPassword(passwordEncoder().encode("user"));
+                userStephen.setRoles(String.valueOf(Role.USER));
+                userRepository.save(userStephen);
+                log.info("User {} has been added", userStephen.getFirstName());
             }
 
-            if (userRepository.findAppUserByEmail("superadmin@gmail.com").isEmpty()) {
-                User superAdmin = new User();
-                superAdmin.setEmail("superadmin@gmail.com");
-                superAdmin.setPassword(passwordEncoder().encode("super"));
-                superAdmin.setRoles(String.valueOf(Role.SUPER_ADMIN));
-                userRepository.save(superAdmin);
-                log.info("Super Admin registered: {}", superAdmin);
+            if (userRepository.findAppUserByEmail("senam@gmail.com").isEmpty()) {
+                User superAdminSenam = new User();
+                superAdminSenam.setFirstName("Senam");
+                superAdminSenam.setSurname("Adagbe");
+                superAdminSenam.setEmail("senam@gmail.com");
+                superAdminSenam.setPassword(passwordEncoder().encode("super"));
+                superAdminSenam.setRoles(String.valueOf(Role.SUPER_ADMIN));
+                userRepository.save(superAdminSenam);
+                log.info("Super Admin {} has been added", superAdminSenam.getFirstName());
             }
 
             Item item1 = new Item();

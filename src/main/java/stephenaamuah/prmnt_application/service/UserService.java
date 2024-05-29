@@ -19,10 +19,13 @@ public class UserService{
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(User user) {
+    public User addUser(User user) {
+        user.setFirstName(user.getFirstName());
+        user.setSurname(user.getSurname());
+        user.setEmail(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(String.valueOf(Role.USER));
-        log.info("User registered: {}", user);
+        log.info("User added {}", user);
         userRepository.save(user);
         return user;
     }

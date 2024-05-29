@@ -1,11 +1,9 @@
 package stephenaamuah.prmnt_application.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import java.sql.Blob;
 
 @Data
 @Entity
@@ -18,5 +16,9 @@ public class Item {
     private String name;
     private String description;
     private int quantity;
+
+
+    @Lob
+    private Blob photo;
 
 }
