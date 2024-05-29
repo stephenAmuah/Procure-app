@@ -78,7 +78,7 @@ public class SecurityConfig {
                 adminAlfred.setFirstName("Alfred");
                 adminAlfred.setSurname("Ternor");
                 adminAlfred.setEmail("ternor@gmail.com");
-                adminAlfred.setPassword(passwordEncoder().encode("admin"));
+                adminAlfred.setPassword(passwordEncoder().encode("super"));
                 adminAlfred.setRoles(String.valueOf(Role.SUPER_ADMIN));
                 userRepository.save(adminAlfred);
                 log.info("Admin {} has been added", adminAlfred.getFirstName());
