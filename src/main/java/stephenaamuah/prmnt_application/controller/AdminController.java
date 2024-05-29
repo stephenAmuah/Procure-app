@@ -25,38 +25,40 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/add-user")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAddUserPage(@ModelAttribute("user") User user) {
-        return "add-user";
-    }
+//    @GetMapping("/add-user")
+//    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+//    public String getAddUserPage(@ModelAttribute("user") User user) {
+//        return "add-user";
+//    }
 
     @PostMapping("/add-user")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String addUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/procureapp/add-user?success";
+        return "redirect:/procureapp/dashboard?success";
     }
 
     @GetMapping("/dashboard")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String getAdminDashboard(Model model, Authentication authentication) {
-        model.addAttribute("items", itemService.getAllItems());
+
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getAllItems());
         model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
         return "dashboard";
     }
 
 
     @GetMapping("/items/add")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String getAddItem(Model model, Item item) {
         model.addAttribute("item", item);
         return "dashboard";
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     @PostMapping("/items/add")
     public String addItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
@@ -64,7 +66,7 @@ public class AdminController {
     }
 
     @PostMapping("/items/update")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String updateItem(@RequestParam("id") Long id, @ModelAttribute("item") Item item, BindingResult result) {
         if (result.hasErrors()) {
             return "dashboard";
@@ -83,7 +85,7 @@ public class AdminController {
     }
 
     @PostMapping("/items/delete")
-    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('SUPER')")
     public String deleteItem(@RequestParam("id") Long id) {
         itemService.deleteItem(id);
         return "redirect:/procureapp/dashboard";

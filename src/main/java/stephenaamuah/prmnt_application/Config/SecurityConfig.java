@@ -11,7 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -42,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/procureapp/add-user", "/procureapp/login").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/success"))
+                .formLogin(form -> form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/afterlogin"))
                 .logout(logout -> logout.logoutUrl("/procureapp/logout").clearAuthentication(true))
                 .csrf(AbstractHttpConfigurer::disable);
         return httpSecurity.build();
@@ -79,7 +78,7 @@ public class SecurityConfig {
                 adminAlfred.setSurname("Ternor");
                 adminAlfred.setEmail("ternor@gmail.com");
                 adminAlfred.setPassword(passwordEncoder().encode("super"));
-                adminAlfred.setRoles(String.valueOf(Role.SUPER_ADMIN));
+                adminAlfred.setRoles(String.valueOf(Role.SUPER));
                 userRepository.save(adminAlfred);
                 log.info("Admin {} has been added", adminAlfred.getFirstName());
             }

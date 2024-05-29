@@ -36,7 +36,7 @@ public class UserController {
 
 
     @GetMapping("/items")
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String viewItems(Model model, Authentication authentication) {
         List<Item> items = itemService.getAllItems();
         log.info("All items: {}", items);
