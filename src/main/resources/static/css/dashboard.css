@@ -1,7 +1,6 @@
 body {
     background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
-
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -82,4 +81,55 @@ body {
     .table-actions button {
         font-size: 16px;
     }
+}
+
+
+
+/* Custom Button Styles */
+.custom-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.custom-btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.custom-btn:hover {
+    opacity: 0.8;
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    color: #0E0E52;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+.add-button:hover .fas {
+    transform: rotate(45deg);
+}
+
+.add-button .fas {
+    margin-right: 5px;
+    transition: transform 0.3s ease;
 }

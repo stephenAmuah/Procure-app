@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand">Admin</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <i onclick="openAddModal()" class="fas fa-plus"></i>
-                </li>
-            </ul>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ProcureApp</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3" th:text="'Role: ' + ${loggedInUserRole}"></span>
+            <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+            <a class="nav-link" href="/procureapp/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
     </div>
 </nav>
@@ -24,7 +25,12 @@
 <div class="container mt-4">
     <div class="row mb-3">
         <div class="col">
-            <input type="text" id="filter" class="form-control" placeholder="Filter items...">
+            <div class="input-group">
+                <input type="text" id="filter" class="form-control" placeholder="Filter items...">
+                <div class="input-group-append">
+                    <i class="fas fa-plus add-button" onclick="openAddModal()">Add Item</i>
+                </div>
+            </div>
         </div>
     </div>
     <table class="table">
@@ -57,12 +63,12 @@
 </div>
 
 <!-- Add Item Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
-
             </div>
             <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post">
                 <div class="modal-body">
@@ -80,12 +86,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
                 </div>
             </form>
         </div>
@@ -93,7 +95,8 @@
 </div>
 
 <!-- Update Item Modal -->
-<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -116,12 +119,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Update
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
                 </div>
             </form>
         </div>
@@ -192,16 +191,12 @@
             });
         });
 
-        document.getElementById('filter').addEventListener('input', function() {
+        document.getElementById('filter').addEventListener('input', function () {
             const filterText = this.value.toLowerCase();
             document.querySelectorAll('#itemTable tr').forEach(row => {
                 const name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
                 const description = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
-                if (name.includes(filterText) || description.includes(filterText)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = (name.includes(filterText) || description.includes(filterText)) ? '' : 'none';
             });
         });
     });
