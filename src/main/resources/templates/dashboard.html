@@ -24,7 +24,7 @@
         <div class="navbar-nav ml-auto">
             <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
             <!-- Add User and Add Item buttons/icons -->
-            <i class="material-icons" onclick="openAddModal()">add</i>
+
             <i class="material-icons" onclick="openAddUserModal()">person_add</i>
             <a class="material-icons" href="/procureapp/logout"><i class="material-icons">exit_to_app</i></a>
         </div>
@@ -38,6 +38,9 @@
         <div class="col">
             <div class="input-group">
                 <input type="text" id="filter" class="form-control" placeholder="Filter items...">
+                <div class="input-group-append">
+                    <i class="fas fa-plus add-button" onclick="openAddModal()">Add Item</i>
+                </div>
             </div>
         </div>
     </div>
@@ -152,13 +155,13 @@
                         </select>
                     </div>
                     <!-- Submit Button -->
-
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <!-- Close Button -->
-                <button type="submit" class="btn btn-primary">Add</button>
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
