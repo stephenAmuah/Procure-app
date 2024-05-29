@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Signup</title>
+    <title>Add User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +24,13 @@
         <div class="modal-header">
             <h1>Add User</h1>
         </div>
-
-        <form th:action="@{/procureapp/signup}" th:object="${user}" method="post">
+        <!-- Check if success parameter exists in the URL -->
+        <div th:if="${param.success}">
+            <div class="alert alert-success" role="alert">
+                User added successfully!
+            </div>
+        </div>
+        <form th:action="@{/procureapp/add-user}" th:object="${user}" method="post">
             <div class="form-group">
                 <input type="text" id="firstName" th:field="*{firstName}" placeholder="Firstname" class="form-control"
                        required/>

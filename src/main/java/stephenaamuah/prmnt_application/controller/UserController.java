@@ -38,13 +38,9 @@ public class UserController {
     @GetMapping("/items")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
     public String viewItems(Model model, Authentication authentication) {
-
-
         List<Item> items = itemService.getAllItems();
         log.info("All items: {}", items);
         model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
-
-
         model.addAttribute("items", items);
         return "home";
     }

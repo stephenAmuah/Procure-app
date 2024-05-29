@@ -39,7 +39,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/procureapp/signup", "/procureapp/login").permitAll()
+                        .requestMatchers("/procureapp/add-user", "/procureapp/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/procureapp/login").defaultSuccessUrl("/procureapp/success"))
@@ -79,32 +79,12 @@ public class SecurityConfig {
                 adminAlfred.setSurname("Ternor");
                 adminAlfred.setEmail("ternor@gmail.com");
                 adminAlfred.setPassword(passwordEncoder().encode("admin"));
-                adminAlfred.setRoles(String.valueOf(Role.ADMIN));
+                adminAlfred.setRoles(String.valueOf(Role.SUPER_ADMIN));
                 userRepository.save(adminAlfred);
                 log.info("Admin {} has been added", adminAlfred.getFirstName());
             }
 
-            if (userRepository.findAppUserByEmail("stephen@gmail.com").isEmpty()) {
-                User userStephen = new User();
-                userStephen.setFirstName("Stephen");
-                userStephen.setSurname("Amuah");
-                userStephen.setEmail("stephen@gmail.com");
-                userStephen.setPassword(passwordEncoder().encode("user"));
-                userStephen.setRoles(String.valueOf(Role.USER));
-                userRepository.save(userStephen);
-                log.info("User {} has been added", userStephen.getFirstName());
-            }
 
-            if (userRepository.findAppUserByEmail("senam@gmail.com").isEmpty()) {
-                User superAdminSenam = new User();
-                superAdminSenam.setFirstName("Senam");
-                superAdminSenam.setSurname("Adagbe");
-                superAdminSenam.setEmail("senam@gmail.com");
-                superAdminSenam.setPassword(passwordEncoder().encode("super"));
-                superAdminSenam.setRoles(String.valueOf(Role.SUPER_ADMIN));
-                userRepository.save(superAdminSenam);
-                log.info("Super Admin {} has been added", superAdminSenam.getFirstName());
-            }
 
             Item item1 = new Item();
             item1.setName("Laptop");
@@ -154,47 +134,8 @@ public class SecurityConfig {
             item8.setQuantity(50);
             itemRepository.save(item8);
 
-            Item item9 = new Item();
-            item9.setName("Monitor");
-            item9.setDescription("This is a monitor");
-            item9.setQuantity(120);
-            itemRepository.save(item9);
 
-            Item item10 = new Item();
-            item10.setName("Keyboard");
-            item10.setDescription("This is a keyboard");
-            item10.setQuantity(200);
-            itemRepository.save(item10);
 
-            Item item11 = new Item();
-            item11.setName("Mouse");
-            item11.setDescription("This is a mouse");
-            item11.setQuantity(180);
-            itemRepository.save(item11);
-
-            Item item12 = new Item();
-            item12.setName("Speaker");
-            item12.setDescription("This is a speaker");
-            item12.setQuantity(95);
-            itemRepository.save(item12);
-
-            Item item13 = new Item();
-            item13.setName("Webcam");
-            item13.setDescription("This is a webcam");
-            item13.setQuantity(60);
-            itemRepository.save(item13);
-
-            Item item14 = new Item();
-            item14.setName("Router");
-            item14.setDescription("This is a router");
-            item14.setQuantity(85);
-            itemRepository.save(item14);
-
-            Item item15 = new Item();
-            item15.setName("Smartwatch");
-            item15.setDescription("This is a smartwatch");
-            item15.setQuantity(110);
-            itemRepository.save(item15);
 
         };
     }

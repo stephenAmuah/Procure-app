@@ -25,17 +25,17 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signup")
+    @GetMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getAddUserPage(@ModelAttribute("user") User user) {
         return "add-user";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/procureapp/login";
+        return "redirect:/procureapp/add-user?success";
     }
 
     @GetMapping("/dashboard")
@@ -43,7 +43,6 @@ public class AdminController {
     public String getAdminDashboard(Model model, Authentication authentication) {
         model.addAttribute("items", itemService.getAllItems());
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
-
         model.addAttribute("item", new Item());
         return "dashboard";
     }
@@ -56,8 +55,9 @@ public class AdminController {
         return "dashboard";
     }
 
-    @PostMapping("/items/add")
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
+    @PostMapping("/items/add")
     public String addItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
         return "redirect:/procureapp/dashboard";
@@ -73,10 +73,10 @@ public class AdminController {
         if (existingItem == null) {
             return "redirect:/procureapp/items";
         }
+
         existingItem.setName(item.getName());
         existingItem.setDescription(item.getDescription());
         existingItem.setQuantity(item.getQuantity());
-
         itemService.updateItem(existingItem);
 
         return "redirect:/procureapp/dashboard";
