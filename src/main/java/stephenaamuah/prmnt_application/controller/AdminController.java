@@ -25,11 +25,7 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping("/add-user")
-//    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-//    public String getAddUserPage(@ModelAttribute("user") User user) {
-//        return "add-user";
-//    }
+
 
     @PostMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
