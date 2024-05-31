@@ -29,9 +29,8 @@ public class AdminController {
 
     @PostMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
-    public String addUser(@ModelAttribute("user") User user) {
-        userService.addUser(user);
-        return "redirect:/procureapp/dashboard?success";
+    public String addUser(@ModelAttribute("user") User user, Authentication authentication) {
+        return userService.addUser(user, authentication);
     }
 
     @GetMapping("/dashboard")

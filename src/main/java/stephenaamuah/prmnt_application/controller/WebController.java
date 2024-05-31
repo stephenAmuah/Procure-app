@@ -11,6 +11,7 @@ import stephenaamuah.prmnt_application.model.UserDetails;
 import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Controller
@@ -45,7 +46,7 @@ public class WebController {
         Object principal = authentication.getPrincipal();
         if (principal instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) principal;
-            accessLogRepository.insertAccessLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority().toString(),"Login", LocalDateTime.now());
+            accessLogRepository.insertAccessLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority(),"Login", LocalDateTime.now());
         }
     }
 }

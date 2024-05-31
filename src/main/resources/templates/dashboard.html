@@ -51,6 +51,12 @@
         </div>
     </div>
 
+    <div th:if="${param.error}">
+        <div class="alert alert-danger" role="alert">
+            Failed to add user. Please try again.
+        </div>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
@@ -168,7 +174,6 @@
                         <select id="roles" name="roles" class="form-control" required>
                             <option value="">Select Role</option>
                             <option value="ADMIN">Admin</option>
-                            <option value="SUPER_ADMIN">Super Admin</option>
                             <option value="USER">User</option>
                         </select>
                     </div>

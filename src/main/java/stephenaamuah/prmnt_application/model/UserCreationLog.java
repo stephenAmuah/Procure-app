@@ -2,9 +2,7 @@ package stephenaamuah.prmnt_application.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,18 +11,22 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
-public class AccessLogs {
+public class UserCreationLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String surname;
-    private String email;
-    private String roles;
-    private String action;
-    private Date created;
+    private String creatorFirstName;
+    private String creatorSurname;
+    private String creatorRole;
+    private String creatorEmail;
+    private String newUserFirstName;
+    private String newUserSurname;
+    private String newUserRole;
+    private String newUserEmail;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime created;
 }

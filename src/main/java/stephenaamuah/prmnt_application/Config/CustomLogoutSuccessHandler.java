@@ -9,6 +9,7 @@ import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
