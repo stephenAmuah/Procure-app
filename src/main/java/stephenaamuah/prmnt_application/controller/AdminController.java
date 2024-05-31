@@ -34,6 +34,8 @@ public class AdminController {
         return "redirect:/procureapp/dashboard?success";
     }
 
+
+
     @GetMapping("/dashboard")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String getAdminDashboard(Model model, Authentication authentication) {
