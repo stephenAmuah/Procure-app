@@ -1,5 +1,6 @@
 package stephenaamuah.prmnt_application.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -8,16 +9,21 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
     private final String email;
     private final String password;
+    private final String firstName;
+    private final String surname;
     private final List<GrantedAuthority> roles;
 
 
     public UserDetails(User user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.firstName = user.getFirstName();
+        this.surname = user.getSurname();
         this.roles = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
