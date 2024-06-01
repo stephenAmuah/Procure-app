@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ProcureApp</a>
+        <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
         <div class="navbar-nav ms-auto">
             <span class="navbar-text me-3" th:text="${loggedInUser}"></span>
             <a class="nav-link" href="/procureapp/logout"><i class="fas fa-sign-out-alt"></i></a>
@@ -26,12 +26,12 @@
 
 <div class="container">
     <div class="text-center">
-        <h2>Item List</h2>
+        <h2>Inventory</h2>
     </div>
     <div class="grid-container">
         <div th:each="item : ${items}">
             <div class="card shadow">
-                <img class="card-img-top" src="https://via.placeholder.com/150" alt="Item Photo">
+                <img class="card-img-top" th:src="${item.photo}" alt="Item Photo">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${item.asset}">Asset</h5>
                     <p class="card-text" th:text="${item.brand}">Brand</p>

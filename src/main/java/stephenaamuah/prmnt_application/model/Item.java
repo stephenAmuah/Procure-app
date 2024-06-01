@@ -27,7 +27,6 @@ public class Item {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate maintenanceDate;
 
-    @Lob
-    private Blob photo;
+    private String photo;
 
 }
