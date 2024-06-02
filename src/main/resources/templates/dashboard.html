@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -23,8 +19,8 @@
         <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
         <div class="navbar-nav ml-auto">
             <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
-            <!-- Add User and Add Item buttons/icons -->
 
+            <!-- Add User and Add Item buttons/icons -->
             <i class="material-icons" onclick="openAddUserModal()">person_add</i>
             <a class="material-icons" href="/procureapp/logout"><i class="material-icons">exit_to_app</i></a>
         </div>
@@ -67,7 +63,7 @@
             <th>ID</th>
             <th>Asset</th>
             <th>Brand</th>
-            <th>Aset Type</th>
+            <th>Asset Type</th>
             <th>Tag</th>
             <th>Description</th>
             <th>Maintenance Date</th>
@@ -188,7 +184,6 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <!-- Close Button -->
-
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -252,6 +247,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
