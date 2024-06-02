@@ -133,3 +133,291 @@ body {
     margin-right: 5px;
     transition: transform 0.3s ease;
 }
+
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-list' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M0 0h16v1H0V0zm0 4h16v1H0V4zm0 4h16v1H0V8zm0 4h16v1H0v-1z'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.navbar-nav.ml-auto {
+    display: flex;
+    align-items: center;
+}
+
+.material-icons {
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.material-icons:last-child {
+    margin-right: 0;
+}
+
+.material-icons{
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav.ml-auto {
+    display: flex;
+    align-items: center;
+}body {
+     background-color: #f8f9fa;
+     font-family: 'Montserrat', sans-serif;
+ }
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.navbar {
+    background-color: #0E0E52;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+.nav-item i {
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.table {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    background-color: #0E0E52;
+    color: #ffffff;
+}
+
+.table-actions button {
+    color: #0E0E52;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.table-actions button:hover {
+    color: #0056b3;
+}
+
+
+.modal-header {
+    background-color: #0E0E52;
+    color: #ffffff;
+}
+
+.modal-footer button {
+    margin-left: 10px;
+}
+
+
+#filter {
+    max-width: 300px;
+    margin: 0 auto 20px;
+}
+
+
+
+/* Responsiveness */
+@media (max-width: 767px) {
+    .navbar-brand {
+        font-size: 18px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    .table-actions button {
+        font-size: 16px;
+    }
+}
+
+
+
+/* Custom Button Styles */
+.custom-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.custom-btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.custom-btn:hover {
+    opacity: 0.8;
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    color: #0E0E52;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+.add-button:hover .fas {
+    transform: rotate(45deg);
+}
+
+.add-button .fas {
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+}
+
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-list' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M0 0h16v1H0V0zm0 4h16v1H0V4zm0 4h16v1H0V8zm0 4h16v1H0v-1z'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.navbar-nav.ml-auto {
+    display: flex;
+    align-items: center;
+}
+
+.material-icons {
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.material-icons:last-child {
+    margin-right: 0;
+}
+
+.material-icons{
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav.ml-auto {
+    display: flex;
+    align-items: center;
+}
+
+.material-icons {
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+    color: white;
+
+    text-decoration: none;
+}
+
+.material-icons:last-child {
+    margin-right: 0;
+}
+
+
+.navbar-text {
+    color: white;
+    margin-right: 10px;
+}
+
+
+.material-icons {
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+    color: white;
+
+    text-decoration: none;
+}
+
+.material-icons:last-child {
+    margin-right: 0;
+}
+
+
+.navbar-text {
+    color: white;
+    margin-right: 10px;
+}
+
+
+#new .material-icons{
+    color: #0E0E52;
+}

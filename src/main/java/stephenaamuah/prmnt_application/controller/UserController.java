@@ -3,25 +3,30 @@ package stephenaamuah.prmnt_application.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import stephenaamuah.prmnt_application.model.Item;
+import stephenaamuah.prmnt_application.model.User;
+import stephenaamuah.prmnt_application.model.UserDetails;
+import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 import stephenaamuah.prmnt_application.service.ItemService;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @Slf4j
 @RequestMapping("/procureapp")
 public class UserController {
 
-    private final ItemService itemService;
-
     @Autowired
-    public UserController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    ItemService itemService;
+    @Autowired
+    AccessLogRepository accessLogRepository;
+
 
 
     @GetMapping("/home")
@@ -32,18 +37,18 @@ public class UserController {
 
 
     @GetMapping("/items")
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER_ADMIN')")
-    public String viewItems(Model model) {
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItems(Model model, Authentication authentication) {
         List<Item> items = itemService.getAllItems();
         log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", items);
         return "home";
     }
 
 
-
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(Authentication authentication) {
         return "redirect:/procureapp/login";
     }
 }

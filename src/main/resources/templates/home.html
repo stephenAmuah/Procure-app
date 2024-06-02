@@ -6,7 +6,9 @@
     <title>User Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/home.css">
 </head>
@@ -14,10 +16,9 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ProcureApp</a>
+        <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
         <div class="navbar-nav ms-auto">
-            <span class="navbar-text me-3" th:text="'Role: ' + ${loggedInUserRole}"></span>
-            <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+            <span class="navbar-text me-3" th:text="${loggedInUser}"></span>
             <a class="nav-link" href="/procureapp/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
     </div>
@@ -25,19 +26,21 @@
 
 <div class="container">
     <div class="text-center">
-        <h2>Item List</h2>
+        <h2>Inventory</h2>
     </div>
     <div class="grid-container">
         <div th:each="item : ${items}">
             <div class="card shadow">
-                <img class="card-img-top" src="https://via.placeholder.com/150" alt="Item Photo">
+                <img class="card-img-top" th:src="${item.photo}" alt="Item Photo">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${item.name}">Item Name</h5>
-                    <p class="card-text" th:text="${item.description}">Item Description</p>
+                    <h5 class="card-title" th:text="${item.asset}">Asset</h5>
+                    <p class="card-text" th:text="${item.brand}">Brand</p>
+                    <p class="card-text" th:text="${item.typeOfAsset}">Type of Asset</p>
+                    <p class="card-text" th:text="${item.description}">Description</p>
+                    <p class="card-text" th:text="${item.maintenanceDate}">MaintenanceDate</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted" th:text="'ID: ' + ${item.id}">Item ID</small>
-                    <span class="badge " th:text="'Quantity: ' + ${item.quantity}">Quantity</span>
+                    <small class="text-muted" th:text="'Tag: ' + ${item.tag}">Item Tag</small>
                 </div>
             </div>
         </div>
