@@ -33,12 +33,14 @@
             <div class="card shadow">
                 <img class="card-img-top" src="https://via.placeholder.com/150" alt="Item Photo">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${item.name}">Item Name</h5>
-                    <p class="card-text" th:text="${item.description}">Item Description</p>
+                    <h5 class="card-title" th:text="${item.asset}">Asset</h5>
+                    <p class="card-text" th:text="${item.brand}">Brand</p>
+                    <p class="card-text" th:text="${item.typeOfAsset}">Type of Asset</p>
+                    <p class="card-text" th:text="${item.description}">Description</p>
+                    <p class="card-text" th:text="${item.maintenanceDate}">MaintenanceDate</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted" th:text="'ID: ' + ${item.id}">Item ID</small>
-                    <span class="badge " th:text="'Quantity: ' + ${item.quantity}">Quantity</span>
+                    <small class="text-muted" th:text="'Tag: ' + ${item.tag}">Item Tag</small>
                 </div>
             </div>
         </div>

@@ -74,9 +74,11 @@ public class AdminController {
             return "redirect:/procureapp/items";
         }
 
-        existingItem.setName(item.getName());
+        existingItem.setAsset(item.getAsset());
+        existingItem.setBrand(item.getBrand());
+        existingItem.setSerialNum(item.getSerialNum());
+        existingItem.setMaintenanceDate(item.getMaintenanceDate());
         existingItem.setDescription(item.getDescription());
-        existingItem.setQuantity(item.getQuantity());
         itemService.updateItem(existingItem);
 
         return "redirect:/procureapp/dashboard";

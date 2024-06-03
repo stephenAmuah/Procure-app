@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.UserDetails;
+import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 import stephenaamuah.prmnt_application.service.ItemService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,12 +22,11 @@ import java.util.Objects;
 @RequestMapping("/procureapp")
 public class UserController {
 
-    private final ItemService itemService;
-
     @Autowired
-    public UserController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    ItemService itemService;
+    @Autowired
+    AccessLogRepository accessLogRepository;
+
 
 
     @GetMapping("/home")
@@ -47,7 +48,14 @@ public class UserController {
 
 
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(Authentication authentication) {
+        log.info("incoming logout request: ");
+        Object principal = authentication.getPrincipal();
+        log.info("principal: {}", principal);
+        if (principal instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) principal;
+            accessLogRepository.insertAccessLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority().toString(),"Logout", LocalDateTime.now());
+        }
         return "redirect:/procureapp/login";
     }
 }
