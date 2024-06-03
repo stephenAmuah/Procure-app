@@ -12,18 +12,20 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
 @Data
 @Entity
-public class AccessLogs {
+public class UserCreationLogs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String surname;
-    private String email;
-    private String roles;
-    private String action;
+    private String creatorFirstName;
+    private String creatorSurname;
+    private String creatorRole;
+    private String creatorEmail;
+    private String newUserFirstName;
+    private String newUserSurname;
+    private String newUserRole;
+    private String newUserEmail;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime created;

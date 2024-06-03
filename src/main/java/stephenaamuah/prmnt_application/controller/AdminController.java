@@ -29,9 +29,8 @@ public class AdminController {
 
     @PostMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
-    public String addUser(@ModelAttribute("user") User user) {
-        userService.addUser(user);
-        return "redirect:/procureapp/dashboard?success";
+    public String addUser(@ModelAttribute("user") User user, Authentication authentication) {
+        return userService.addUser(user, authentication);
     }
 
 
@@ -58,14 +57,14 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     @PostMapping("/items/add")
-    public String addItem(@ModelAttribute("item") Item item) {
-        itemService.saveItem(item);
+    public String addItem(@ModelAttribute("item") Item item, Authentication authentication) {
+        itemService.saveItem(item, authentication);
         return "redirect:/procureapp/dashboard";
     }
 
     @PostMapping("/items/update")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
-    public String updateItem(@RequestParam("id") Long id, @ModelAttribute("item") Item item, BindingResult result) {
+    public String updateItem(@RequestParam("id") Long id, @ModelAttribute("item") Item item, BindingResult result, Authentication authentication) {
         if (result.hasErrors()) {
             return "dashboard";
         }
@@ -73,21 +72,15 @@ public class AdminController {
         if (existingItem == null) {
             return "redirect:/procureapp/items";
         }
-
-        existingItem.setAsset(item.getAsset());
-        existingItem.setBrand(item.getBrand());
-        existingItem.setSerialNum(item.getSerialNum());
-        existingItem.setMaintenanceDate(item.getMaintenanceDate());
-        existingItem.setDescription(item.getDescription());
-        itemService.updateItem(existingItem);
+        itemService.updateItem(existingItem, item, authentication);
 
         return "redirect:/procureapp/dashboard";
     }
 
     @PostMapping("/items/delete")
     @PreAuthorize("hasAuthority('SUPER')")
-    public String deleteItem(@RequestParam("id") Long id) {
-        itemService.deleteItem(id);
+    public String deleteItem(@RequestParam("id") Long id, Authentication authentication) {
+        itemService.deleteItem(id, authentication);
         return "redirect:/procureapp/dashboard";
     }
 }

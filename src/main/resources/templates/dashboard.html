@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -20,11 +16,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ProcureApp</a>
+        <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
         <div class="navbar-nav ml-auto">
             <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
-            <!-- Add User and Add Item buttons/icons -->
 
+            <!-- Add User and Add Item buttons/icons -->
             <i class="material-icons" onclick="openAddUserModal()">person_add</i>
             <a class="material-icons" href="/procureapp/logout"><i class="material-icons">exit_to_app</i></a>
         </div>
@@ -37,9 +33,13 @@
     <div class="row mb-3">
         <div class="col">
             <div class="input-group">
-                <input type="text" id="filter" class="form-control" placeholder="Filter items...">
+                <input type="text" id="filter" class="form-control" placeholder="Filter inventory...">
                 <div class="input-group-append">
+
                     <i class="fas fa-plus add-button" onclick="openAddModal()">Add Item</i>
+
+                    <i class="fas fa-plus add-button" onclick="openAddModal()">Add Inventory</i>
+
                 </div>
             </div>
         </div>
@@ -51,13 +51,19 @@
         </div>
     </div>
 
+    <div th:if="${param.error}">
+        <div class="alert alert-danger" role="alert">
+            Failed to add user. Please try again.
+        </div>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
             <th>ID</th>
             <th>Asset</th>
             <th>Brand</th>
-            <th>Aset Type</th>
+            <th>Asset Type</th>
             <th>Tag</th>
             <th>Description</th>
             <th>Maintenance Date</th>
@@ -168,7 +174,6 @@
                         <select id="roles" name="roles" class="form-control" required>
                             <option value="">Select Role</option>
                             <option value="ADMIN">Admin</option>
-                            <option value="SUPER_ADMIN">Super Admin</option>
                             <option value="USER">User</option>
                         </select>
                     </div>
@@ -179,7 +184,6 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <!-- Close Button -->
-
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -244,9 +248,13 @@
     </div>
 </div>
 
+
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+
     function openAddModal() {
         $('#addItemModal').modal('show');
     }
@@ -325,7 +333,7 @@
             document.querySelectorAll('#itemTable tr').forEach(row => {
                 const asset = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
                 const typeOfAsset = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
-                row.style.display = (name.includes(filterText) || description.includes(filterText)) ? '' : 'none';
+                row.style.display = (asset.includes(filterText) || typeOfAsset.includes(filterText)) ? '' : 'none';
             });
         });
     });

@@ -49,13 +49,6 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(Authentication authentication) {
-        log.info("incoming logout request: ");
-        Object principal = authentication.getPrincipal();
-        log.info("principal: {}", principal);
-        if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            accessLogRepository.insertAccessLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority().toString(),"Logout", LocalDateTime.now());
-        }
         return "redirect:/procureapp/login";
     }
 }
