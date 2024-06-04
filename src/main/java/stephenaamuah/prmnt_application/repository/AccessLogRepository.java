@@ -10,5 +10,5 @@ import java.time.LocalDateTime;
 @Repository
 public interface AccessLogRepository extends JpaRepository<AccessLogs, Long> {
     @Procedure("ACCESS_LOG_INSERT")
-    public void insertAccessLog(String first_name, String surname, String email, String roles, String action, LocalDateTime created);
+ void insertAccessLog(String first_name, String surname, String email, String roles, String action, LocalDateTime created);
 }
