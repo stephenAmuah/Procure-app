@@ -6,12 +6,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.UserDetails;
 import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 import stephenaamuah.prmnt_application.service.ItemService;
+import stephenaamuah.prmnt_application.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +27,7 @@ public class UserController {
     @Autowired
     ItemService itemService;
     @Autowired
-    AccessLogRepository accessLogRepository;
+    UserService userService;
 
 
 
@@ -50,5 +52,38 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(Authentication authentication) {
         return "redirect:/procureapp/login";
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getAdminUserDashboard(Model model, Authentication authentication) {
+
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("ex_user", new User());
+        model.addAttribute("user", new User());
+        return "users";
+    }
+
+    @PostMapping("/user/update")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String updateUser(@RequestParam("id") int id, @ModelAttribute("user") User user, BindingResult result, Authentication authentication) {
+        if (result.hasErrors()) {
+            return "users";
+        }
+        User existingUser = userService.getUserById(id);
+        if (existingUser == null) {
+            return "redirect:/procureapp/users";
+        }
+        userService.updateUser(existingUser, user, authentication);
+
+        return "redirect:/procureapp/users";
+    }
+
+    @PostMapping("/user/delete")
+    @PreAuthorize("hasAuthority('SUPER')")
+    public String deleteItem(@RequestParam("id") int id, Authentication authentication) {
+        userService.deleteUser(id, authentication);
+        return "redirect:/procureapp/users";
     }
 }

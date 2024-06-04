@@ -25,7 +25,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             accessLogRepository.insertAccessLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority().toString(),"Logout", LocalDateTime.now());
         }
-
         response.sendRedirect("/procureapp/login");
     }
 }

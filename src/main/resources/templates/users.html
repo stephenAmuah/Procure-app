@@ -6,11 +6,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+
 </head>
 <body>
 
@@ -19,10 +22,8 @@
         <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
         <div class="navbar-nav ml-auto">
             <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
-            <a href="/procureapp/users">USERS&nbsp;</a>
             <!-- Add User and Add Item buttons/icons -->
-<!--            <i class="material-icons" onclick="openAddUserModal()">person_add</i>-->
-            <a class="material-icons" href="/procureapp/logout"> <i class="material-icons">exit_to_app</i></a>
+            <a class="material-icons" href="/procureapp/logout"><i class="material-icons">exit_to_app</i></a>
         </div>
     </div>
 </nav>
@@ -33,10 +34,9 @@
     <div class="row mb-3">
         <div class="col">
             <div class="input-group">
-                <input type="text" id="filter" class="form-control" placeholder="Filter inventory...">
+                <input type="text" id="filter" class="form-control" placeholder="Filter Users...">
                 <div class="input-group-append">
-                    <i class="fas fa-plus add-button" onclick="openAddModal()">Add Inventory</i>
-
+                    <i class="fas fa-plus add-button" onclick="openAddUserModal()">Add User</i>
                 </div>
             </div>
         </div>
@@ -58,29 +58,25 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Asset</th>
-            <th>Brand</th>
-            <th>Asset Type</th>
-            <th>Tag</th>
-            <th>Description</th>
-            <th>Maintenance Date</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Role</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody id="itemTable">
-        <tr th:each="item : ${items}">
-            <td th:text="${item.id}"></td>
-            <td th:id="'asset_' + ${item.id}" th:text="${item.asset}"></td>
-            <td th:id="'brand_' + ${item.id}" th:text="${item.brand}"></td>
-            <td th:id="'typeOfAsset_' + ${item.id}" th:text="${item.typeOfAsset}"></td>
-            <td th:id="'tag_' + ${item.id}" th:text="${item.tag}"></td>
-            <td th:id="'description_' + ${item.id}" th:text="${item.description}"></td>
-            <td th:id="'maintenanceDate_' + ${item.id}" th:text="${item.maintenanceDate}"></td>
+        <tr th:each="ex_user : ${users}">
+            <td th:text="${ex_user.id}"></td>
+            <td th:id="'firstName_' + ${ex_user.id}" th:text="${ex_user.firstName}"></td>
+            <td th:id="'surname_' + ${ex_user.id}" th:text="${ex_user.surname}"></td>
+            <td th:id="'email_' + ${ex_user.id}" th:text="${ex_user.email}"></td>
+            <td th:id="'roles_' + ${ex_user.id}" th:text="${ex_user.roles}"></td>
             <td class="table-actions">
-                <button th:data-id="${item.id}" onclick="openUpdateModal(this)" class="btn btn-link">
+                <button th:data-id="${ex_user.id}" onclick="openUpdateModal(this)" class="btn btn-link">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button th:data-id="${item.id}" onclick="deleteItem(this)" class="btn btn-link">
+                <button th:data-id="${ex_user.id}" onclick="deleteUser(this)" class="btn btn-link">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </td>
@@ -89,52 +85,6 @@
     </table>
 </div>
 
-<!-- Add Item Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addItemModalLabel">Add New Asset</h5>
-            </div>
-            <form id="addItemForm" action="/procureapp/items/add" class="ajax-form" method="post"
-                  enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="asset">Asset:</label>
-                        <input type="text" id="asset" name="asset" required class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="brand">Brand:</label>
-                        <input type="text" id="brand" name="brand" required class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <select id="typeOfAsset" name="typeOfAsset" class="form-control" required>
-                            <option value="">Select Type of Asset</option>
-                            <option value="CA">Computer Asset</option>
-                            <option value="FF">Furniture and Fitting</option>
-                            <option value="TA">Transportation Asset</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="serialNum">Serial No:</label>
-                        <input type="text" id="serialNum" name="serialNum" required class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" required class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel"
@@ -147,7 +97,6 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-
                 <!-- Form for adding a user -->
                 <form th:action="@{/procureapp/add-user}" th:object="${user}" method="post">
                     <!-- Form fields for user details -->
@@ -188,32 +137,35 @@
 </div>
 
 
-<!-- Update Item Modal -->
-<div class="modal fade" id="updateItemModal" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel"
+<!-- Update User Modal -->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateItemModalLabel">Update Item</h5>
+                <h5 class="modal-title" id="updateUserModalLabel">Update Item</h5>
             </div>
-            <form id="updateItemForm" class="ajax-form" method="post" enctype="multipart/form-data">
+            <form id="updateUserForm" class="ajax-form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="hidden" id="updateItemId" name="id"/>
+                    <input type="hidden" id="updateUserId" name="id"/>
                     <div class="form-group">
-                        <label for="updateAsset">Asset:</label>
-                        <input type="text" id="updateAsset" name="asset" required class="form-control"/>
+                        <label for="updateFirstName">First Name:</label>
+                        <input type="text" id="updateFirstName" name="firstName" required class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label for="updateBrand">Brand:</label>
-                        <input type="text" id="updateBrand" name="brand" required class="form-control"/>
+                        <label for="updateSurname">Surname:</label>
+                        <input type="text" id="updateSurname" name="surname" required class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label for="UpdateMaintenanceDate">Maintenance Date:</label>
-                        <input type="date" id="UpdateMaintenanceDate" name="maintenanceDate" required class="form-control"/>
+                        <label for="UpdateEmail">Email:</label>
+                        <input type="text" id="UpdateEmail" name="email" required class="form-control"/>
                     </div>
-                    <div class="form-group">
-                        <label for="updateDescription">Description:</label>
-                        <textarea id="updateDescription" name="description" required class="form-control"></textarea>
+                    <div  th:if="${loggedInUserRole == 'SUPER'}" class="form-group">
+                        <select id="UpdateRoles" name="roles" class="form-control" required>
+                            <option value="">Select Role</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="USER">User</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -226,6 +178,7 @@
         </div>
     </div>
 </div>
+
 
 <!--Error Message Model-->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
@@ -245,16 +198,9 @@
     </div>
 </div>
 
-
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-
-    function openAddModal() {
-        $('#addItemModal').modal('show');
-    }
 
     function openAddUserModal() {
         $('#addUserModal').modal('show');
@@ -266,29 +212,31 @@
     }
 
     function openUpdateModal(button) {
-        const itemId = button.getAttribute('data-id');
-        document.getElementById('updateItemId').value = itemId;
-        const asset = document.getElementById('asset_' + itemId).innerText.trim();
-        const brand = document.getElementById('brand_' + itemId).innerText.trim();
-        const description = document.getElementById('description_' + itemId).innerText.trim();
-        const maintenanceDate = document.getElementById('maintenanceDate_' + itemId).innerText.trim();
-        document.getElementById('updateAsset').value = asset;
-        document.getElementById('updateBrand').value = brand;
-        document.getElementById('UpdateMaintenanceDate').value = maintenanceDate;
-        document.getElementById('updateDescription').value = description;
-        document.getElementById('updateItemForm').action = '/procureapp/items/update?id=' + itemId;
-        $('#updateItemModal').modal('show');
+        const userId = button.getAttribute('data-id');
+        document.getElementById('updateUserId').value = userId;
+        const firstName = document.getElementById('firstName_' + userId).innerText.trim();
+        const surname = document.getElementById('surname_' + userId).innerText.trim();
+        const email = document.getElementById('email_' + userId).innerText.trim();
+        const roles = document.getElementById('roles_' + userId).innerText.trim();
+        document.getElementById('firstName').value = firstName;
+        document.getElementById('surname').value = surname;
+        document.getElementById('email').value = email;
+        if (roles){
+           document.getElementById('roles').value = roles;
+        }
+        document.getElementById('updateUserForm').action = '/procureapp/user/update?id=' + userId;
+        $('#updateUserModal').modal('show');
     }
 
-    async function deleteItem(button) {
-        const itemId = button.getAttribute('data-id');
+    async function deleteUser(button) {
+        const userId = button.getAttribute('data-id');
         try {
-            const response = await fetch('/procureapp/items/delete?id=' + itemId, {method: 'POST'});
+            const response = await fetch('/procureapp/user/delete?id=' + userId, {method: 'POST'});
             if (response.ok) {
                 window.location.reload();
             } else {
                 if (response.status === 403) {
-                    showErrorModal('Only super admins are permitted to delete an item');
+                    showErrorModal('Only super admins are permitted to delete a user');
                 } else {
                     const errorText = await response.text();
                     showErrorModal('Error occurred while processing the request: ' + errorText);
@@ -328,9 +276,10 @@
         document.getElementById('filter').addEventListener('input', function () {
             const filterText = this.value.toLowerCase();
             document.querySelectorAll('#itemTable tr').forEach(row => {
-                const asset = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
-                const typeOfAsset = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
-                row.style.display = (asset.includes(filterText) || typeOfAsset.includes(filterText)) ? '' : 'none';
+                const firstName = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+                const surname = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                const email = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+                row.style.display = (firstName.includes(filterText) || surname.includes(filterText) || email.includes(filterText)) ? '' : 'none';
             });
         });
     });
