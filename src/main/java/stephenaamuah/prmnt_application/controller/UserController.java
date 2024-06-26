@@ -30,7 +30,6 @@ public class UserController {
     UserService userService;
 
 
-
     @GetMapping("/home")
     @PreAuthorize("hasAuthority('USER')")
     public String userHomePage() {
