@@ -119,7 +119,6 @@ public class ItemService {
             Item savedItem = itemRepository.save(existingItem);
             String new_record = JsonUtility.toJson(savedItem);
             itemUpdateLogRepository.insertUpdateLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getUsername(), userDetails.getRoles().get(0).getAuthority(), old_record, new_record, new Date());
-
             return "redirect:/procureapp/dashboard";
         } else {
             return "redirect:/procureapp/items";
