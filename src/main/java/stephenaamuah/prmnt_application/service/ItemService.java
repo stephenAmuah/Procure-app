@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import stephenaamuah.prmnt_application.model.AssetStatus;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.UserDetails;
 import stephenaamuah.prmnt_application.repository.ItemCreationLogRepository;
@@ -15,8 +16,10 @@ import stephenaamuah.prmnt_application.repository.ItemUpdateLogRepository;
 import stephenaamuah.prmnt_application.utils.JsonUtility;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static stephenaamuah.prmnt_application.model.AssetType.*;
 
@@ -47,23 +50,28 @@ public class ItemService {
             switch (item.getTypeOfAsset()) {
                 case "CA" -> {
                     num = String.valueOf((int) (Math.random() * (200 - 100)) + 100);
-                    tag = "PA/".concat(CA).concat("/").concat(num);
+                    tag = "IDC/".concat(CA).concat("/").concat(num);
+                    item.setMaintenanceDate(LocalDate.now().plusMonths(6));
                     break;
                 }
                 case "FF" -> {
                     num = String.valueOf((int) (Math.random() * (300 - 200)) + 200);
-                    tag = "PA/".concat(FF).concat("/").concat(num);
+                    tag = "IDC/".concat(FF).concat("/").concat(num);
+                    item.setMaintenanceDate(LocalDate.now().plusMonths(12));
                     break;
                 }
                 case "TA" -> {
                     num = String.valueOf((int) (Math.random() * (400 - 500)) + 400);
-                    tag = "PA/".concat(TA).concat("/").concat(num);
+                    tag = "IDC/".concat(TA).concat("/").concat(num);
+                    item.setMaintenanceDate(LocalDate.now().plusYears(3));
+
                     break;
                 }
                 default -> tag = "";
             }
             item.setTag(tag);
-            item.setMaintenanceDate(LocalDate.now().plusMonths(6));
+            item.setStatus(AssetStatus.Unassigned);
+            item.setAddedBy(userDetails.getFirstName().concat(" ").concat(userDetails.getSurname()));
             Item savedItem = itemRepository.save(item);
 
             String record = JsonUtility.toJson(savedItem);
@@ -113,8 +121,15 @@ public class ItemService {
 
             existingItem.setAsset(item.getAsset());
             existingItem.setBrand(item.getBrand());
-            existingItem.setMaintenanceDate(item.getMaintenanceDate());
+            if(Objects.nonNull(item.getMaintenanceDate())){
+                existingItem.setMaintenanceDate(item.getMaintenanceDate());
+            }
+            if(Objects.nonNull(item.getCreated())){
+                existingItem.setCreated(item.getCreated());
+            }
             existingItem.setDescription(item.getDescription());
+            existingItem.setStatus(item.getStatus());
+            existingItem.setUpdatedBy(userDetails.getFirstName().concat(" ").concat(userDetails.getSurname()));
 
             Item savedItem = itemRepository.save(existingItem);
             String new_record = JsonUtility.toJson(savedItem);

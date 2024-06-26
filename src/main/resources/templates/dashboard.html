@@ -57,25 +57,33 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Asset</th>
+            <th>Name</th>
             <th>Brand</th>
             <th>Asset Type</th>
             <th>Tag</th>
             <th>Description</th>
+            <th>Date Purchased</th>
+            <th>status</th>
+            <th>Added By</th>
+            <th>Updated By</th>
             <th>Maintenance Date</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody id="itemTable">
         <tr th:each="item : ${items}">
-            <td th:text="${item.id}"></td>
+<!--            <td th:text="${item.id}"></td>-->
             <td th:id="'asset_' + ${item.id}" th:text="${item.asset}"></td>
             <td th:id="'brand_' + ${item.id}" th:text="${item.brand}"></td>
             <td th:id="'typeOfAsset_' + ${item.id}" th:text="${item.typeOfAsset}"></td>
             <td th:id="'tag_' + ${item.id}" th:text="${item.tag}"></td>
             <td th:id="'description_' + ${item.id}" th:text="${item.description}"></td>
-            <td th:id="'maintenanceDate_' + ${item.id}" th:text="${item.maintenanceDate}"></td>
+            <td th:id="'created_' + ${item.id}" th:text="${#temporals.format(item.created, 'E, d MMMM, yyyy')}"></td>
+            <td th:id="'status_' + ${item.id}" th:text="${item.status}"></td>
+            <td th:id="'addedBy_' + ${item.id}" th:text="${item.addedBy}"></td>
+            <td th:id="'updatedBy_' + ${item.id}" th:text="${item.updatedBy}"></td>
+            <td th:id="'maintenanceDate_' + ${item.id}" th:text="${#temporals.format(item.maintenanceDate, 'E, d MMMM, yyyy')}"></td>
+
             <td class="table-actions">
                 <button th:data-id="${item.id}" onclick="openUpdateModal(this)" class="btn btn-link">
                     <i class="fas fa-edit"></i>
@@ -119,6 +127,10 @@
                     <div class="form-group">
                         <label for="serialNum">Serial No:</label>
                         <input type="text" id="serialNum" name="serialNum" required class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="created">Date Purchased:</label>
+                        <input type="date" id="created" name="created" required class="form-control"></input>
                     </div>
                     <div class="form-group">
                         <label for="description">Description:</label>
@@ -209,11 +221,25 @@
                     </div>
                     <div class="form-group">
                         <label for="UpdateMaintenanceDate">Maintenance Date:</label>
-                        <input type="date" id="UpdateMaintenanceDate" name="maintenanceDate" required class="form-control"/>
+                        <input type="date" id="UpdateMaintenanceDate" name="maintenanceDate"  class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="updateDescription">Description:</label>
                         <textarea id="updateDescription" name="description" required class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateStatus">Status:</label>
+                        <select id="updateStatus" name="status" class="form-control" required>
+                            <option value="">Select Status</option>
+                            <option value="Assigned">Assigned</option>
+                            <option value="Unassigned">UnAssigned</option>
+                            <option value="In Maintenance">In Maintenance</option>
+                            <option value="End of Life">End of Life</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="UpdateCreated">Date Purchased:</label>
+                        <input type="date" id="UpdateCreated" name="created"  class="form-control"/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -272,10 +298,14 @@
         const brand = document.getElementById('brand_' + itemId).innerText.trim();
         const description = document.getElementById('description_' + itemId).innerText.trim();
         const maintenanceDate = document.getElementById('maintenanceDate_' + itemId).innerText.trim();
+        const created = document.getElementById('created_' + itemId).innerText.trim();
+        const status = document.getElementById('status_' + itemId).innerText.trim();
         document.getElementById('updateAsset').value = asset;
         document.getElementById('updateBrand').value = brand;
         document.getElementById('UpdateMaintenanceDate').value = maintenanceDate;
+        document.getElementById('UpdateCreated').value = created;
         document.getElementById('updateDescription').value = description;
+        document.getElementById('updateStatus').value = status;
         document.getElementById('updateItemForm').action = '/procureapp/items/update?id=' + itemId;
         $('#updateItemModal').modal('show');
     }
