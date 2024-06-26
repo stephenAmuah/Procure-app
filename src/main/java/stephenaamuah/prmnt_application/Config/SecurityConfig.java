@@ -87,7 +87,7 @@ public class SecurityConfig {
                 adminAlfred.setPassword(passwordEncoder().encode("super"));
                 adminAlfred.setRoles(String.valueOf(Role.SUPER));
                 userRepository.save(adminAlfred);
-                log.info("Admin {} has been added", adminAlfred.getFirstName());
+                log.info("Super admin: {} has been added", adminAlfred.getFirstName());
             }
 
 
