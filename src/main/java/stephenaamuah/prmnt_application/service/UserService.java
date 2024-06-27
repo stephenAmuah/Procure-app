@@ -43,16 +43,18 @@ public class UserService{
     public String addUser(User user, Authentication authentication) {
         try {
             Object principal = authentication.getPrincipal();
+            UserDetails userDetails = (UserDetails) principal;
             if (principal instanceof UserDetails) {
                 user.setFirstName(user.getFirstName());
                 user.setSurname(user.getSurname());
                 user.setEmail(user.getEmail());
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 user.setRoles(user.getRoles());
+                user.setAddedBy(userDetails.getFirstName().concat(" ").concat(userDetails.getSurname()));
                 log.info("User added {}", user);
                 userRepository.save(user);
 
-                UserDetails userDetails = (UserDetails) principal;
+
                 userCreationLogRepository.insertUserCreationLog(userDetails.getFirstName(), userDetails.getSurname(), userDetails.getEmail(),userDetails.getRoles().get(0).getAuthority(),user.getFirstName(),user.getSurname(),user.getEmail(),user.getRoles(), LocalDateTime.now());
             }
 
@@ -81,6 +83,7 @@ public class UserService{
             existingUser.setFirstName(user.getFirstName());
             existingUser.setSurname(user.getSurname());
             existingUser.setEmail(user.getEmail());
+            existingUser.setUpdatedBy(userDetails.getFirstName().concat(" ").concat(userDetails.getSurname()));
             if(Objects.nonNull(user.getRoles())){
                 existingUser.setRoles(user.getRoles());
             }

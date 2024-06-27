@@ -15,6 +15,7 @@ import stephenaamuah.prmnt_application.repository.AccessLogRepository;
 import stephenaamuah.prmnt_application.service.ItemService;
 import stephenaamuah.prmnt_application.service.UserService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -47,6 +48,25 @@ public class UserController {
         return "home";
     }
 
+    @GetMapping("/items/maintenance-date/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsMaintenanceDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByMaintenanceDate(startDate, endDate);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
+
+    @GetMapping("/items/purchased/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsPurchased(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate,Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByDatePurchased(startDate, endDate);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
 
     @GetMapping("/logout")
     public String logout(Authentication authentication) {

@@ -61,6 +61,9 @@
             <th>Surname</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Added By</th>
+            <th>Updated By</th>
+            <th>Date Added</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -71,6 +74,9 @@
             <td th:id="'surname_' + ${ex_user.id}" th:text="${ex_user.surname}"></td>
             <td th:id="'email_' + ${ex_user.id}" th:text="${ex_user.email}"></td>
             <td th:id="'roles_' + ${ex_user.id}" th:text="${ex_user.roles}"></td>
+            <td th:id="'addedBy_' + ${ex_user.id}" th:text="${ex_user.addedBy}"></td>
+            <td th:id="'updatedBy_' + ${ex_user.id}" th:text="${ex_user.updatedBy}"></td>
+            <td th:id="'created_' + ${ex_user.id}" th:text="${#temporals.format(ex_user.created, 'E, d MMMM, yyyy, h:mm a')}"></td>
             <td class="table-actions">
                 <button th:data-id="${ex_user.id}" onclick="openUpdateModal(this)" class="btn btn-link">
                     <i class="fas fa-edit"></i>

@@ -14,9 +14,12 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #012269;">
     <div class="container-fluid">
-        <a class="navbar-brand" style="font-size: 17px" href="#">IDEAL GROUP OF COMPANIES</a>
+<!--        <a class="navbar-brand" style="font-size: 17px" href="#">IDEAL GROUP OF COMPANIES</a>-->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/index.jpg}" alt="Logo" style="height: 100px;">
+        </a>
         <div class="navbar-nav ml-auto">
             <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
             <a href="/procureapp/users">USERS&nbsp;</a>

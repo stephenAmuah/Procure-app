@@ -9,7 +9,7 @@ body {
 }
 
 .navbar {
-    background-color: #0E0E52;
+    background-color: #012269;
 }
 
 .navbar-brand {
@@ -34,12 +34,12 @@ body {
 }
 
 .table thead th {
-    background-color: #0E0E52;
+    background-color: #012269;
     color: #ffffff;
 }
 
 .table-actions button {
-    color: #0E0E52;
+    color: #012269;
     background: none;
     border: none;
     padding: 0;
@@ -52,7 +52,7 @@ body {
 
 
 .modal-header {
-    background-color: #0E0E52;
+    background-color: #012269;
     color: #ffffff;
 }
 

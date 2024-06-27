@@ -12,6 +12,7 @@ import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.service.ItemService;
 import stephenaamuah.prmnt_application.service.UserService;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -41,6 +42,28 @@ public class AdminController {
 
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", itemService.getAllItems());
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/purchased/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredReportForMaintenanceDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
+
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByDatePurchased(startDate, endDate));
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/maintenance-date/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredReportDatePurchased(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
+
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByMaintenanceDate(startDate, endDate));
         model.addAttribute("item", new Item());
         model.addAttribute("user", new User());
         return "dashboard";

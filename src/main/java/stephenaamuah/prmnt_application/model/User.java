@@ -24,6 +24,8 @@ public class User {
     private String email;
     private String password;
     private String roles;
+    private String addedBy;
+    private String updatedBy;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime created;

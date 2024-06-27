@@ -22,6 +22,8 @@ import stephenaamuah.prmnt_application.repository.ItemRepository;
 import stephenaamuah.prmnt_application.repository.UserRepository;
 import stephenaamuah.prmnt_application.service.UserDetailsService;
 
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableMethodSecurity
 @EnableWebSecurity
@@ -86,6 +88,7 @@ public class SecurityConfig {
                 adminAlfred.setEmail("ternor@gmail.com");
                 adminAlfred.setPassword(passwordEncoder().encode("super"));
                 adminAlfred.setRoles(String.valueOf(Role.SUPER));
+                adminAlfred.setCreated(LocalDateTime.now());
                 userRepository.save(adminAlfred);
                 log.info("Super admin: {} has been added", adminAlfred.getFirstName());
             }

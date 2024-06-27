@@ -33,11 +33,12 @@
             <div class="card shadow">
                 <img class="card-img-top" th:src="${item.photo}" alt="Item Photo">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${item.asset}">Asset</h5>
-                    <p class="card-text" th:text="${item.brand}">Brand</p>
-                    <p class="card-text" th:text="${item.typeOfAsset}">Type of Asset</p>
-                    <p class="card-text" th:text="${item.description}">Description</p>
-                    <p class="card-text" th:text="${item.maintenanceDate}">MaintenanceDate</p>
+                    <h5 class="card-title"><span th:text="${item.asset}">Asset</span></h5>
+                    <p class="card-text">Brand: <span th:text="${item.brand}">Brand</span></p>
+                    <p class="card-text">Type of Asset: <span th:text="${item.typeOfAsset}">Type of Asset</span></p>
+                    <p class="card-text">Description: <span th:text="${item.description}">Description</span></p>
+                    <p class="card-text">Maintenance Date: <span th:text="${#temporals.format(item.maintenanceDate, 'E, d MMMM, yyyy')}">MaintenanceDate</span></p>
+                    <p class="card-text">Date Purchased: <span th:text="${#temporals.format(item.created, 'E, d MMMM, yyyy')}">MaintenanceDate</span></p>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted" th:text="'Tag: ' + ${item.tag}">Item Tag</small>
