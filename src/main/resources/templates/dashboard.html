@@ -14,21 +14,56 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #012269;">
-    <div class="container-fluid">
-<!--        <a class="navbar-brand" style="font-size: 17px" href="#">IDEAL GROUP OF COMPANIES</a>-->
-        <a class="navbar-brand" href="#">
-            <img th:src="@{/images/index.jpg}" alt="Logo" style="height: 100px;">
-        </a>
-        <div class="navbar-nav ml-auto">
-            <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>
-            <a href="/procureapp/users">USERS&nbsp;</a>
-            <!-- Add User and Add Item buttons/icons -->
-<!--            <i class="material-icons" onclick="openAddUserModal()">person_add</i>-->
-            <a class="material-icons" href="/procureapp/logout"> <i class="material-icons">exit_to_app</i></a>
+<!--<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #012269;">-->
+<!--    <div class="container-fluid">-->
+<!--        &lt;!&ndash;        <a class="navbar-brand" style="font-size: 17px" href="#">IDEAL GROUP OF COMPANIES</a>&ndash;&gt;-->
+<!--        <a class="navbar-brand" href="#">-->
+<!--            <img th:src="@{/images/index.jpg}" alt="Logo" style="height: 100px;">-->
+<!--        </a>-->
+<!--        <div class="navbar-nav ml-auto">-->
+<!--            <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>-->
+<!--            <a href="/procureapp/users">USERS&nbsp;</a>-->
+<!--            &lt;!&ndash; Add User and Add Item buttons/icons &ndash;&gt;-->
+<!--            &lt;!&ndash;            <i class="material-icons" onclick="openAddUserModal()">person_add</i>&ndash;&gt;-->
+<!--            <a class="material-icons" href="/procureapp/logout"> <i class="material-icons">exit_to_app</i></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid justify-content-between">
+        <div class="image-container">
+            <a class="image" href="#">
+                <img src="/images/index.jpg" alt="Logo" style="height: 60px;">
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filter By
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/procureapp/users">All Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:text="${loggedInUserRole}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/procureapp/logout">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
+
 
 
 
@@ -39,7 +74,6 @@
                 <input type="text" id="filter" class="form-control" placeholder="Filter inventory...">
                 <div class="input-group-append">
                     <i class="fas fa-plus add-button" onclick="openAddModal()">Add Inventory</i>
-
                 </div>
             </div>
         </div>
@@ -66,7 +100,7 @@
             <th>Tag</th>
             <th>Description</th>
             <th>Date Purchased</th>
-            <th>status</th>
+            <th>Status</th>
             <th>Added By</th>
             <th>Updated By</th>
             <th>Maintenance Date</th>
@@ -358,7 +392,7 @@
             });
         });
 
-        document.getElementById('filter').addEventListener('input', function () {
+        document.getElementById('nav-link').addEventListener('input', function () {
             const filterText = this.value.toLowerCase();
             document.querySelectorAll('#itemTable tr').forEach(row => {
                 const asset = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
