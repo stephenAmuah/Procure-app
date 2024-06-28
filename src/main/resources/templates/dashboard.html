@@ -32,8 +32,8 @@
                         Filter By
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Date purchased</a>
-                        <a class="dropdown-item" href="#">Maintenance Date</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#filterDatePurchasedModal">Purchased Date</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#filterMaintenanceDateModal">Maintenance Date</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -59,7 +59,7 @@
             <div class="input-group">
                 <input type="text" id="filter" class="form-control" placeholder="Filter inventory...">
                 <div class="input-group-append">
-                    <i class="fas fa-plus add-button" onclick="openAddModal()">Add Inventory</i>
+                    <i class="fas fa-plus add-button" onclick="openAddInventoryModal()">Add Inventory</i>
                 </div>
             </div>
         </div>
@@ -276,6 +276,60 @@
     </div>
 </div>
 
+<!-- Filter by Date Purchased Modal -->
+<div class="modal fade" id="filterDatePurchasedModal" tabindex="-1" role="dialog" aria-labelledby="filterDatePurchasedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterDatePurchasedModalLabel">Date Purchased</h5>
+            </div>
+            <div class="modal-body">
+                <form id="filterDatePurchasedForm">
+                    <div class="form-group">
+                        <label for="startDatePurchased">Start Date:</label>
+                        <input type="date" id="startDatePurchased" name="startDatePurchased" required class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDatePurchased">End Date:</label>
+                        <input type="date" id="endDatePurchased" name="endDatePurchased" required class="form-control"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="filterDatePurchasedForm" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter by Maintenance Date Modal -->
+<div class="modal fade" id="filterMaintenanceDateModal" tabindex="-1" role="dialog" aria-labelledby="filterMaintenanceDateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterMaintenanceDateModalLabel">Maintenance Date</h5>
+            </div>
+            <div class="modal-body">
+                <form id="filterMaintenanceDateForm">
+                    <div class="form-group">
+                        <label for="startDateMaintenance">Start Date:</label>
+                        <input type="date" id="startDateMaintenance" name="startDateMaintenance" required class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDateMaintenance">End Date:</label>
+                        <input type="date" id="endDateMaintenance" name="endDateMaintenance" required class="form-control"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="filterMaintenanceDateForm" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--Error Message Model-->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
      aria-hidden="true">
@@ -301,14 +355,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
-<!-- Your custom scripts -->
-<script>
-    function openAddModal() {
-        $('#addItemModal').modal('show');
-    }
 
-    function openAddUserModal() {
-        $('#addUserModal').modal('show');
+<script>
+    function openAddInventoryModal() {
+        $('#addItemModal').modal('show');
     }
 
     function showErrorModal(message) {
@@ -378,6 +428,45 @@
                 }
             });
         });
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+                const target = event.target;
+                if (target.matches('.dropdown-item')) {
+                    const filterType = target.innerText.trim();
+                    if (filterType === 'Date purchased') {
+                        $('#filterDatePurchasedModal').modal('show');
+                    } else if (filterType === 'Maintenance Date') {
+                        $('#filterMaintenanceDateModal').modal('show');
+                    }
+                }
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+
+                document.getElementById('filterDatePurchasedForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const startDate = document.getElementById('startDatePurchased').value;
+                    const endDate = document.getElementById('endDatePurchased').value;
+                    console.log('Filter by Date Purchased:', startDate, endDate);
+                    $('#filterDatePurchasedModal').modal('hide');
+                });
+
+                // Handle form submission for Maintenance Date filter
+                document.getElementById('filterMaintenanceDateForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const startDate = document.getElementById('startDateMaintenance').value;
+                    const endDate = document.getElementById('endDateMaintenance').value;
+                    // Implement your filtering logic here
+                    console.log('Filter by Maintenance Date:', startDate, endDate);
+                    $('#filterMaintenanceDateModal').modal('hide');
+                });
+            });
+
+
 
         document.getElementById('nav-link').addEventListener('input', function () {
             const filterText = this.value.toLowerCase();
