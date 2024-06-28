@@ -8,27 +8,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
 </head>
 <body>
-
-<!--<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #012269;">-->
-<!--    <div class="container-fluid">-->
-<!--        &lt;!&ndash;        <a class="navbar-brand" style="font-size: 17px" href="#">IDEAL GROUP OF COMPANIES</a>&ndash;&gt;-->
-<!--        <a class="navbar-brand" href="#">-->
-<!--            <img th:src="@{/images/index.jpg}" alt="Logo" style="height: 100px;">-->
-<!--        </a>-->
-<!--        <div class="navbar-nav ml-auto">-->
-<!--            <span class="navbar-text me-3" th:text="${loggedInUserRole}"></span>-->
-<!--            <a href="/procureapp/users">USERS&nbsp;</a>-->
-<!--            &lt;!&ndash; Add User and Add Item buttons/icons &ndash;&gt;-->
-<!--            &lt;!&ndash;            <i class="material-icons" onclick="openAddUserModal()">person_add</i>&ndash;&gt;-->
-<!--            <a class="material-icons" href="/procureapp/logout"> <i class="material-icons">exit_to_app</i></a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</nav>-->
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid justify-content-between">
@@ -38,17 +21,20 @@
             </a>
         </div>
 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Filter By
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Date purchased</a>
+                        <a class="dropdown-item" href="#">Maintenance Date</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/procureapp/users">All Users</a>
@@ -109,7 +95,7 @@
         </thead>
         <tbody id="itemTable">
         <tr th:each="item : ${items}">
-<!--            <td th:text="${item.id}"></td>-->
+
             <td th:id="'asset_' + ${item.id}" th:text="${item.asset}"></td>
             <td th:id="'brand_' + ${item.id}" th:text="${item.brand}"></td>
             <td th:id="'typeOfAsset_' + ${item.id}" th:text="${item.typeOfAsset}"></td>
@@ -134,7 +120,7 @@
     </table>
 </div>
 
-<!-- Add Item Modal -->
+<!-- Add Inventory Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -312,9 +298,11 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
+<!-- Your custom scripts -->
+<script>
     function openAddModal() {
         $('#addItemModal').modal('show');
     }
@@ -350,7 +338,7 @@
     async function deleteItem(button) {
         const itemId = button.getAttribute('data-id');
         try {
-            const response = await fetch('/procureapp/items/delete?id=' + itemId, {method: 'POST'});
+            const response = await fetch('/procureapp/items/delete?id=' + itemId, { method: 'POST' });
             if (response.ok) {
                 window.location.reload();
             } else {
@@ -365,7 +353,6 @@
             showErrorModal('Error occurred while processing the request: ' + error);
         }
     }
-
 
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.ajax-form').forEach(form => {
