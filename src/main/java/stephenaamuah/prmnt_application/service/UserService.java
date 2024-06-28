@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
-import stephenaamuah.prmnt_application.model.Role;
 import stephenaamuah.prmnt_application.model.UserDetails;
 import stephenaamuah.prmnt_application.repository.UserCreationLogRepository;
 import stephenaamuah.prmnt_application.repository.UserDeletionLogRepository;
@@ -20,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -72,6 +71,7 @@ public class UserService{
     public User getUserById(int id) {
         return userRepository.findById(id).orElse(null);
     }
+
 
     public String updateUser(User existingUser, User user, Authentication authentication) {
         String old_record = JsonUtility.toJson(existingUser);

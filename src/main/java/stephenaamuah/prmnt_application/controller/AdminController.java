@@ -14,6 +14,7 @@ import stephenaamuah.prmnt_application.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Controller
@@ -61,6 +62,7 @@ public class AdminController {
     @GetMapping("/dashboard/maintenance-date/{startDate}/{endDate}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String getFilteredReportDatePurchased(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
+
 
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", itemService.getItemsByMaintenanceDate(startDate, endDate));
