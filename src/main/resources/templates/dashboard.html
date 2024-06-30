@@ -455,12 +455,11 @@
                     $('#filterDatePurchasedModal').modal('hide');
                 });
 
-                // Handle form submission for Maintenance Date filter
+
                 document.getElementById('filterMaintenanceDateForm').addEventListener('submit', function (e) {
                     e.preventDefault();
                     const startDate = document.getElementById('startDateMaintenance').value;
                     const endDate = document.getElementById('endDateMaintenance').value;
-                    // Implement your filtering logic here
                     console.log('Filter by Maintenance Date:', startDate, endDate);
                     $('#filterMaintenanceDateModal').modal('hide');
                 });
