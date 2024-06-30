@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.Role;
 import stephenaamuah.prmnt_application.repository.AccessLogRepository;
@@ -81,7 +80,7 @@ public class SecurityConfig {
     @Bean
     public CommandLineRunner initAdmin() {
         return args -> {
-            if (userRepository.findAppUserByEmail("ternor@gmail.com").equals("ternor@gmail.com")) {
+            if(userRepository.findAppUserByEmail("ternor@gmail.com").isEmpty()){
                 User adminAlfred = new User();
                 adminAlfred.setFirstName("Alfred");
                 adminAlfred.setSurname("Ternor");
@@ -91,8 +90,8 @@ public class SecurityConfig {
                 adminAlfred.setCreated(LocalDateTime.now());
                 userRepository.save(adminAlfred);
                 log.info("Super admin: {} has been added", adminAlfred.getFirstName());
-            }
 
+            }
 
 
 //            Item item1 = new Item();
