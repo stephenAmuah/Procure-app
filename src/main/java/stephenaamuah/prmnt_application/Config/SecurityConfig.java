@@ -80,7 +80,7 @@ public class SecurityConfig {
     @Bean
     public CommandLineRunner initAdmin() {
         return args -> {
-            if (userRepository.findAppUserByEmail("ternor@gmail.com").equals("ternor@gmail.com")) {
+
                 User adminAlfred = new User();
                 adminAlfred.setFirstName("Alfred");
                 adminAlfred.setSurname("Ternor");
@@ -90,7 +90,7 @@ public class SecurityConfig {
                 adminAlfred.setCreated(LocalDateTime.now());
                 userRepository.save(adminAlfred);
                 log.info("Super admin: {} has been added", adminAlfred.getFirstName());
-            }
+
 
 
 
