@@ -14,6 +14,7 @@ import stephenaamuah.prmnt_application.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Controller
@@ -27,13 +28,11 @@ public class AdminController {
     private UserService userService;
 
 
-
     @PostMapping("/add-user")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
     public String addUser(@ModelAttribute("user") User user, Authentication authentication) {
         return userService.addUser(user, authentication);
     }
-
 
 
     @GetMapping("/dashboard")
@@ -49,8 +48,7 @@ public class AdminController {
 
     @GetMapping("/dashboard/purchased/{startDate}/{endDate}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
-    public String getFilteredReportForMaintenanceDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
-
+    public String getFilteredItemsForMaintenanceDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", itemService.getItemsByDatePurchased(startDate, endDate));
         model.addAttribute("item", new Item());
@@ -60,8 +58,7 @@ public class AdminController {
 
     @GetMapping("/dashboard/maintenance-date/{startDate}/{endDate}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
-    public String getFilteredReportDatePurchased(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
-
+    public String getFilteredItemsForPurchasedDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", itemService.getItemsByMaintenanceDate(startDate, endDate));
         model.addAttribute("item", new Item());

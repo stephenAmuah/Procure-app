@@ -14,12 +14,27 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0E0E52;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">IDEAL GROUP OF COMPANIES</a>
-        <div class="navbar-nav ms-auto">
-            <span class="navbar-text me-3" th:text="${loggedInUser}"></span>
-            <a class="nav-link" href="/procureapp/logout"><i class="fas fa-sign-out-alt"></i></a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid justify-content-between">
+        <div class="image-container">
+            <a class="image" href="#">
+                <img src="/images/index.jpg" alt="Logo" style="height: 60px;">
+            </a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" th:text="${loggedInUserRole}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/procureapp/logout">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

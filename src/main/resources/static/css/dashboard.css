@@ -12,9 +12,7 @@ body {
     background-color: #012269;
 }
 
-.navbar-brand {
-    color: #ffffff !important;
-}
+
 
 .nav-item i {
     color: #ffffff;
@@ -169,20 +167,8 @@ body {
     align-items: center;
 }
 
-.material-icons {
-    font-size: 24px;
-    margin-right: 15px;
-    cursor: pointer;
-}
 
-.material-icons:last-child {
-    margin-right: 0;
-}
 
-.material-icons{
-    color: white;
-    text-decoration: none;
-}
 
 .navbar-nav.ml-auto {
     display: flex;
@@ -325,7 +311,7 @@ body {
 
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .nav-link {
@@ -353,10 +339,6 @@ body {
 }
 
 
-.navbar-nav.ml-auto {
-    display: flex;
-    align-items: center;
-}
 
 .material-icons {
     font-size: 24px;
@@ -373,10 +355,7 @@ body {
     text-decoration: none;
 }
 
-.navbar-nav.ml-auto {
-    display: flex;
-    align-items: center;
-}
+
 
 .material-icons {
     font-size: 24px;
@@ -420,4 +399,8 @@ body {
 
 #new .material-icons{
     color: #0E0E52;
+}
+
+.navbar .container-fluid{
+    justify-content: space-between;
 }

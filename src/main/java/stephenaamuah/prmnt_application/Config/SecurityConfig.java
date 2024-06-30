@@ -80,7 +80,7 @@ public class SecurityConfig {
     @Bean
     public CommandLineRunner initAdmin() {
         return args -> {
-            if (userRepository.findAppUserByEmail("ternor@gmail.com").isEmpty()) {
+            if (userRepository.findAppUserByEmail("ternor@gmail.com").equals("ternor@gmail.com")) {
                 User adminAlfred = new User();
                 adminAlfred.setFirstName("Alfred");
                 adminAlfred.setSurname("Ternor");
