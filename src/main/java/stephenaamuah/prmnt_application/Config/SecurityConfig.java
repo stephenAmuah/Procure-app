@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.Role;
 import stephenaamuah.prmnt_application.repository.AccessLogRepository;
