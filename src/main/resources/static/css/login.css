@@ -19,7 +19,7 @@ html, body {
 }
 
 nav {
-    background-color: #0E0E52;
+    background-color: #012269;
     color: white;
     padding: 15px;
     text-align: start;
@@ -73,7 +73,7 @@ nav {
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: #0E0E52;
+    background-color: #012269;
     color: white;
     border: none;
     border-radius: 5px;
@@ -92,7 +92,7 @@ nav {
 }
 
 .link a {
-    color: #0E0E52;
+    color: #012269;
     text-decoration: none;
     transition: color 0.3s ease;
 }
