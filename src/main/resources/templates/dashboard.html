@@ -352,6 +352,8 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
@@ -405,6 +407,43 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.matches('.dropdown-item')) {
+                const filterType = target.innerText.trim();
+                if (filterType === 'Date Purchased') {
+                    $('#filterDatePurchasedModal').modal('show');
+                } else if (filterType === 'Maintenance Date') {
+                    $('#filterMaintenanceDateModal').modal('show');
+                }
+            }
+        });
+
+        document.getElementById('filterDatePurchasedForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const startDate = document.getElementById('startDatePurchased').value;
+            const endDate = document.getElementById('endDatePurchased').value;
+            console.log('Filter by Date Purchased:', startDate, endDate);
+            $('#filterDatePurchasedModal').modal('hide');
+        });
+
+        document.getElementById('filterMaintenanceDateForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const startDate = document.getElementById('startDateMaintenance').value;
+            const endDate = document.getElementById('endDateMaintenance').value;
+            console.log('Filter by Maintenance Date:', startDate, endDate);
+            $('#filterMaintenanceDateModal').modal('hide');
+        });
+
+        document.getElementById('filter').addEventListener('input', function () {
+            const filterText = this.value.toLowerCase();
+            document.querySelectorAll('#itemTable tr').forEach(row => {
+                const asset = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+                const typeOfAsset = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+                row.style.display = (asset.includes(filterText) || typeOfAsset.includes(filterText)) ? '' : 'none';
+            });
+        });
+
         document.querySelectorAll('.ajax-form').forEach(form => {
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
@@ -428,54 +467,8 @@
                 }
             });
         });
-
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-
-            document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
-                const target = event.target;
-                if (target.matches('.dropdown-item')) {
-                    const filterType = target.innerText.trim();
-                    if (filterType === 'Date purchased') {
-                        $('#filterDatePurchasedModal').modal('show');
-                    } else if (filterType === 'Maintenance Date') {
-                        $('#filterMaintenanceDateModal').modal('show');
-                    }
-                }
-            });
-
-            document.addEventListener('DOMContentLoaded', () => {
-
-                document.getElementById('filterDatePurchasedForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const startDate = document.getElementById('startDatePurchased').value;
-                    const endDate = document.getElementById('endDatePurchased').value;
-                    console.log('Filter by Date Purchased:', startDate, endDate);
-                    $('#filterDatePurchasedModal').modal('hide');
-                });
-
-
-                document.getElementById('filterMaintenanceDateForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const startDate = document.getElementById('startDateMaintenance').value;
-                    const endDate = document.getElementById('endDateMaintenance').value;
-                    console.log('Filter by Maintenance Date:', startDate, endDate);
-                    $('#filterMaintenanceDateModal').modal('hide');
-                });
-            });
-
-
-
-        document.getElementById('nav-link').addEventListener('input', function () {
-            const filterText = this.value.toLowerCase();
-            document.querySelectorAll('#itemTable tr').forEach(row => {
-                const asset = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
-                const typeOfAsset = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
-                row.style.display = (asset.includes(filterText) || typeOfAsset.includes(filterText)) ? '' : 'none';
-            });
-        });
     });
+
 </script>
 </body>
 </html>
