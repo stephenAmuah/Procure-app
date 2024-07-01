@@ -2,32 +2,19 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(#ece9e6, #ffffff);
+    background: linear-gradient(#ece9e6, #0275d8);
+}
+
+.container-fluid {
+    height: 100%;
 }
 
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
     padding: 20px;
-    box-sizing: border-box;
 }
 
-nav {
-    background-color: #012269;
-    color: white;
-    padding: 15px;
-    text-align: start;
-    font-size: 20px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+.navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
 }
 
 .login-modal {
@@ -73,7 +60,7 @@ nav {
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: #012269;
+    background-color: #0056b3;
     color: white;
     border: none;
     border-radius: 5px;
@@ -100,3 +87,4 @@ nav {
 .link a:hover {
     color: #0056b3;
 }
+

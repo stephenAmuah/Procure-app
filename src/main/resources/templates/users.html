@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
 <head>
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard-all users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -20,7 +19,7 @@
     <div class="container-fluid justify-content-between">
         <div class="image-container">
             <a class="image" href="#">
-                <img src="/images/itclogo.png" alt="Logo" style="height: 60px;">
+                <img src="/images/enterprise-logo.png" alt="Logo" style="height: 50px; width: auto;">
             </a>
         </div>
 
@@ -49,7 +48,8 @@
             <div class="input-group">
                 <input type="text" id="filter" class="form-control" placeholder="Filter Users...">
                 <div class="input-group-append">
-                    <i class="fas fa-plus add-button" onclick="openAddUserModal()">Add User</i>
+
+                    <button type="button" class="btn btn-outline-primary" onclick="openAddUserModal()">Add User</button>
                 </div>
             </div>
         </div>

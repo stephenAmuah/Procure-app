@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.Role;
 import stephenaamuah.prmnt_application.repository.AccessLogRepository;
@@ -92,59 +93,6 @@ public class SecurityConfig {
                 log.info("Super admin: {} has been added", adminAlfred.getFirstName());
 
             }
-
-
-//            Item item1 = new Item();
-////            item1.setName("Laptop");
-//            item1.setDescription("This is a laptop");
-////            item1.setQuantity(56);
-//            itemRepository.save(item1);
-//
-//            Item item2 = new Item();
-////            item2.setName("Car");
-//            item2.setDescription("This is a car");
-////            item2.setQuantity(100);
-//            itemRepository.save(item2);
-//
-//            Item item3 = new Item();
-////            item3.setName("Macbook");
-//            item3.setDescription("This is a macbook");
-////            item3.setQuantity(200);
-//            itemRepository.save(item3);
-//
-//            Item item4 = new Item();
-////            item4.setName("Machine");
-//            item4.setDescription("This is a machine");
-////            item4.setQuantity(56);
-//            itemRepository.save(item4);
-//
-//            Item item5 = new Item();
-////            item5.setName("Phone");
-//            item5.setDescription("This is a phone");
-////            item5.setQuantity(150);
-//            itemRepository.save(item5);
-//
-//            Item item6 = new Item();
-////            item6.setName("Tablet");
-//            item6.setDescription("This is a tablet");
-////            item6.setQuantity(75);
-//            itemRepository.save(item6);
-//
-//            Item item7 = new Item();
-////            item7.setName("Headphones");
-//            item7.setDescription("These are headphones");
-////            item7.setQuantity(300);
-//            itemRepository.save(item7);
-//
-//            Item item8 = new Item();
-////            item8.setName("Printer");
-//            item8.setDescription("This is a printer");
-////            item8.setQuantity(50);
-//            itemRepository.save(item8);
-//
-
-
-
         };
     }
 }
