@@ -1,17 +1,7 @@
 /* Custom Styles */
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
 
-.container {
-    margin-top: 20px;
-}
-
-h2 {
-    margin-bottom: 30px;
+.navbar {
+    background-color: #F5FEFD;
 }
 
 .grid-container {
