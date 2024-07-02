@@ -50,6 +50,7 @@ public class UserService{
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 user.setRoles(user.getRoles());
                 user.setAddedBy(userDetails.getFirstName().concat(" ").concat(userDetails.getSurname()));
+                user.setCreated(LocalDateTime.now());
                 log.info("User added {}", user);
                 userRepository.save(user);
 

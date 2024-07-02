@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import stephenaamuah.prmnt_application.model.AssetStatus;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.model.UserDetails;
@@ -67,6 +68,47 @@ public class UserController {
         model.addAttribute("items", items);
         return "home";
     }
+
+    @GetMapping("/items/status/assigned")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsByAssigned(Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByStatus(AssetStatus.Assigned);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
+
+    @GetMapping("/items/status/unassigned")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsByUnAssigned(Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByStatus(AssetStatus.Unassigned);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
+
+    @GetMapping("/items/status/maintenance")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsByMaintenance(Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByStatus(AssetStatus.InMaintenance);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
+
+    @GetMapping("/items/status/end-of-life")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String viewItemsByEndOfLife(Model model, Authentication authentication) {
+        List<Item> items = itemService.getItemsByStatus(AssetStatus.EndOfLife);
+        log.info("All items: {}", items);
+        model.addAttribute("loggedInUser", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", items);
+        return "home";
+    }
+
 
     @GetMapping("/logout")
     public String logout(Authentication authentication) {

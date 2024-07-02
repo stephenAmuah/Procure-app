@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import stephenaamuah.prmnt_application.model.AssetStatus;
 import stephenaamuah.prmnt_application.model.Item;
 import stephenaamuah.prmnt_application.model.User;
 import stephenaamuah.prmnt_application.service.ItemService;
@@ -61,6 +62,46 @@ public class AdminController {
     public String getFilteredItemsForPurchasedDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, Model model, Authentication authentication) {
         model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
         model.addAttribute("items", itemService.getItemsByMaintenanceDate(startDate, endDate));
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/status/assigned")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredItemsByAssigned(Model model, Authentication authentication) {
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByStatus(AssetStatus.Assigned));
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/status/unassigned")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredItemsByUnassigned(Model model, Authentication authentication) {
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByStatus(AssetStatus.Unassigned));
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/status/maintenance")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredItemsByMaintenace(Model model, Authentication authentication) {
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByStatus(AssetStatus.InMaintenance));
+        model.addAttribute("item", new Item());
+        model.addAttribute("user", new User());
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/status/end-of-life")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPER')")
+    public String getFilteredItemsByEndOfLife(Model model, Authentication authentication) {
+        model.addAttribute("loggedInUserRole", Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).getAuthority());
+        model.addAttribute("items", itemService.getItemsByStatus(AssetStatus.EndOfLife));
         model.addAttribute("item", new Item());
         model.addAttribute("user", new User());
         return "dashboard";

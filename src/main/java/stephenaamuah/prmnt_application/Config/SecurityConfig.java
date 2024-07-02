@@ -85,11 +85,11 @@ public class SecurityConfig {
                 User adminAlfred = new User();
                 adminAlfred.setFirstName("Alfred");
                 adminAlfred.setSurname("Ternor");
-                adminAlfred.setEmail("ternor@gmail.com");
+                adminAlfred.setEmail("alfred@gmail.com");
                 adminAlfred.setPassword(passwordEncoder().encode("super"));
                 adminAlfred.setRoles(String.valueOf(Role.SUPER));
                 adminAlfred.setCreated(LocalDateTime.now());
-                userRepository.save(adminAlfred);
+//                userRepository.save(adminAlfred);
                 log.info("Super admin: {} has been added", adminAlfred.getFirstName());
 
             }

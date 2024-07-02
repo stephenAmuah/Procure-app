@@ -17,4 +17,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value = "SELECT i FROM Item i WHERE i.created BETWEEN ?1 AND ?2 ORDER BY i.created ASC")
     List<Item> findUsingDatePurchased(LocalDate startDate, LocalDate endDate);
 
+    List<Item> findByStatus(String status);
+
 }
